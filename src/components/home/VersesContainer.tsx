@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VerseType } from "../../constants/VerseType";
 import Verse from "./Verse";
 
@@ -12,14 +12,16 @@ function generateRandomIndex(length: number) {
   
 
 export default function VersesContainer({ verses }: VersesContainerPropsType) {
-    const [index, setIndex] = useState<number>(function () {
-        return generateRandomIndex(verses.length);
-    });
+    const [index, setIndex] = useState<number>(0);
     const verse = verses[index];
 
     function handleClickOnVerse() {
         setIndex(generateRandomIndex(verses.length));
     }
+
+    useEffect(() => {
+        setIndex(0);
+    }, [verses]);
 
     if (verses.length === 0) {
         return (
