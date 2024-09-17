@@ -1,12 +1,14 @@
-
+import { HashRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
 
 function App() {
-
   return (
-    <>
-      <p className="text-red-500">Hello World!</p>
-    </>
-  )
+    <HashRouter>
+      <Routes>
+        <Route index path="/" element={<Home />} />
+      </Routes>
+    </HashRouter>
+  );
 }
 
 export default App;
