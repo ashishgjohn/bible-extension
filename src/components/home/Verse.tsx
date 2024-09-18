@@ -1,21 +1,13 @@
-import img1 from './../../assets/imgs/img1.jpg';
-// import img2 from './../assets/imgs/img2.jpg';
-// import img3 from './../assets/imgs/img3.jpg';
-import img4 from './../../assets/imgs/img4.jpg';
-
-
 type VersePropsType = {
     reference: string;
     version: string;
     text: string;
     mood: number;
+    image: string;
     onClick: () => void;
 }
 
-export default function Verse({ reference, version, text, mood, onClick }: VersePropsType) {
-    const images = [img1, img4];
-    const image = images[Math.abs(mood % 2)];
-
+export default function Verse({ reference, version, text, mood, image, onClick }: VersePropsType) {
     return (
         <div className="w-full h-full relative" onClick={onClick}>
             <img src={image} alt="" className='c w-full h-full' />

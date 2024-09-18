@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { VerseType } from "../../constants/VerseType";
 import Verse from "./Verse";
+import useVerseImage from "../../functions/useVerseImage";
 
 type VersesContainerPropsType = {
     verses: VerseType[];
@@ -8,10 +9,11 @@ type VersesContainerPropsType = {
 
 function generateRandomIndex(length: number) {
     return Math.floor(Math.random() * length);
-  }
-  
+}
+
 
 export default function VersesContainer({ verses }: VersesContainerPropsType) {
+    const { data, isLoading } = useVerseImage();
     const [index, setIndex] = useState<number>(0);
     const verse = verses[index];
 
@@ -30,6 +32,12 @@ export default function VersesContainer({ verses }: VersesContainerPropsType) {
     }
 
     return (
-        <Verse {...verse} onClick={handleClickOnVerse} />
+        <>
+            {isLoading ? (
+                <p>loading...</p>
+            ) : (
+                <Verse {...verse} image={data} onClick={handleClickOnVerse} />
+            )}
+        </>
     );
 }

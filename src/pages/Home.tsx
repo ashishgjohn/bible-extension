@@ -6,7 +6,6 @@ import VersesContainer from "../components/home/VersesContainer";
 export default function Home() {
     const [mood, setMood] = useState<number>(0);
     const versesList = verses.filter(v => v.mood === mood);
-    console.log(versesList);
 
     return (
         <div>
