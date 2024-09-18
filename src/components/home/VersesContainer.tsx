@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { VerseType } from "../../constants/VerseType";
 import Verse from "./Verse";
 import useVerseImage from "../../functions/useVerseImage";
+import Loader from "../ui/Loader";
 
 type VersesContainerPropsType = {
     verses: VerseType[];
@@ -32,12 +33,12 @@ export default function VersesContainer({ verses }: VersesContainerPropsType) {
     }
 
     return (
-        <>
+        <div className="w-screen h-screen flex justify-center items-center">
             {isLoading ? (
-                <p>loading...</p>
+                <Loader />
             ) : (
                 <Verse {...verse} image={data} onClick={handleClickOnVerse} />
             )}
-        </>
+        </div>
     );
 }
