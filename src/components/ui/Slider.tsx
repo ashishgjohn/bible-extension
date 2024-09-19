@@ -10,8 +10,8 @@ type SliderPropsType = {
 
 export default function Slider({ value, min, max, step, onChange }: SliderPropsType) {
     const getMoodColor = (mood: number) => {
-        const cheerfulColor = [230, 0, 35];
-        const gloomyColor = [0, 0, 139];
+        const cheerfulColor = [255, 176, 46];
+        const gloomyColor = [0, 28, 64];
         const moodNormalized = (mood + 10) / 20;
 
         const r = Math.round(gloomyColor[0] * (1 - moodNormalized) + cheerfulColor[0] * moodNormalized);

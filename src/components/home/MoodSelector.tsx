@@ -35,7 +35,7 @@ export default function MoodSelector({ value, onChange }: MoodSelectorPropsType)
                 onClick={handleClick}
                 classname="w-full bg-primary p-3 px-4 rounded-xl self-center justify-self-end "
             >
-                <p className="text-base font-semibold text-white">View</p>
+                <p className="text-base font-semibold text-white">Show my verse!</p>
             </Button>
         </div>
     );

@@ -8,7 +8,7 @@ export default function VersePage() {
     const versesList = verses.filter(v => v.Score === Number(index));
 
     return (
-        <div className='w-[400px] resize-none'>
+        <div className='w-[380px] m-auto resize-none'>
             <VersesContainer verses={versesList} />
         </div>
     );
