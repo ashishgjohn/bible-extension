@@ -10,8 +10,8 @@ type SliderPropsType = {
 
 export default function Slider({ value, min, max, step, onChange }: SliderPropsType) {
     const getMoodColor = (mood: number) => {
-        const cheerfulColor = [255, 223, 0];
-        const gloomyColor = [105, 105, 105];
+        const cheerfulColor = [230, 0, 35];
+        const gloomyColor = [0, 0, 139];
         const moodNormalized = (mood + 10) / 20;
 
         const r = Math.round(gloomyColor[0] * (1 - moodNormalized) + cheerfulColor[0] * moodNormalized);
@@ -30,7 +30,7 @@ export default function Slider({ value, min, max, step, onChange }: SliderPropsT
             min={min}
             max={max}
             title="Select your Mood"
-            className="w-full h-2 appearance-none bg-gray-300 rounded-lg cursor-pointer outline-none shadow-lg "
+            className="w-full h-6 px-2 appearance-none bg-gray-300 rounded-2xl cursor-pointer outline-none shadow-lg "
             style={{
                 background: getMoodColor(value)
             }}

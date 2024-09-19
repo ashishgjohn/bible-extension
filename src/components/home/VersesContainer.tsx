@@ -33,11 +33,17 @@ export default function VersesContainer({ verses }: VersesContainerPropsType) {
     }
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center">
+        <div className="w-full h-screen flex justify-center items-center">
             {isLoading ? (
                 <Loader />
             ) : (
-                <Verse {...verse} image={data} onClick={handleClickOnVerse} />
+                <Verse
+                    text={verse.Verse}
+                    reference={verse.Reference}
+                    mood={verse.Score}
+                    image={data}
+                    onClick={handleClickOnVerse}
+                />
             )}
         </div>
     );

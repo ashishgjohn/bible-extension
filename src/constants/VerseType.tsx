@@ -1,6 +1,7 @@
 export  type VerseType = {
-    reference: string;
-    version: string;
-    text: string;
-    mood: number;
+    ID: number;
+    Verse: string;
+    Reference: string;
+    Score: number;
+    imageID: string;
 }
