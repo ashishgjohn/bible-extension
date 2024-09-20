@@ -17,7 +17,7 @@ function App() {
       <HashRouter>
         <Routes>
           <Route index path="/" element={<Home />} />
-          <Route path="/verse/:index" element={<VersePage />} />
+          <Route path="/verse/:score" element={<VersePage />} />
         </Routes>
       </HashRouter>
     </QueryClientProvider>

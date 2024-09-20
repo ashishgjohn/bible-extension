@@ -20,8 +20,7 @@ import img18 from './../../assets/imgs/img18.jpg'
 import { useEffect, useState } from "react";
 import { VerseType } from "../../constants/VerseType";
 import Verse from "./Verse";
-// import useVerseImage from "../../functions/useVerseImage";
-// import Loader from "../ui/Loader";
+import ErrorPlaceholder from '../ui/ErrorPlaceholder';
 
 type VersesContainerPropsType = {
     verses: VerseType[];
@@ -36,7 +35,6 @@ const images = [img0, img1, img2, img3, img4, img5, img6, img7, img8, img9, img1
 
 export default function VersesContainer({ verses }: VersesContainerPropsType) {
     const image = images[generateRandomIndex(images.length)];
-    // const { data, isLoading } = useVerseImage();
     const [index, setIndex] = useState<number>(0);
     const verse = verses[index];
 
@@ -48,25 +46,19 @@ export default function VersesContainer({ verses }: VersesContainerPropsType) {
         setIndex(0);
     }, [verses]);
 
-    if (verses.length === 0) {
-        return (
-            <p className="text-center">No verses found</p>
-        );
-    }
-
     return (
         <div className="w-full h-screen flex justify-center items-center">
-            {/* {isLoading ? (
-                <Loader />
-            ) : ( */}
+            {verses.length === 0 ? (
+                <ErrorPlaceholder message='No verses found!' />
+            ) : (
                 <Verse
-                    text={verse.Verse}
-                    reference={verse.Reference}
-                    mood={verse.Score}
+                    text={verse?.verse}
+                    reference={verse?.reference}
+                    mood={verse?.score}
                     image={image}
                     onClick={handleClickOnVerse}
                 />
-            {/* )} */}
+            )}
         </div>
     );
 }

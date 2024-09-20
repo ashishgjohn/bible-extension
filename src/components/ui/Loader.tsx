@@ -1,10 +1,11 @@
 import { LoaderSize } from "./../../constants/LoaderSize";
 
 type LoaderPropsType = {
-    size?: LoaderSize
+    size?: LoaderSize;
+    className?: string;
 }
 
-export default function Loader({ size }: LoaderPropsType) {
+export default function Loader({ size, className }: LoaderPropsType) {
     let config = '';
     switch (size) {
         case LoaderSize.LG:
@@ -20,6 +21,6 @@ export default function Loader({ size }: LoaderPropsType) {
             break;
     }
     return (
-        <div className={`${config} animate-spin border-2 border-t-primary rounded-full`}></div>
+        <div className={`${config} animate-spin border-2 border-t-primary rounded-full ${className}`}></div>
     );
 }
