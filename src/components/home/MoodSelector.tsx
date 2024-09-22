@@ -33,7 +33,7 @@ export default function MoodSelector({ value, onChange }: MoodSelectorPropsType)
 
             <Button
                 onClick={handleClick}
-                classname="w-full bg-primary p-3 px-4 rounded-xl self-center justify-self-end "
+                classname="bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 w-full p-3 px-4 rounded-xl self-center justify-self-end "
             >
                 <p className="text-base font-semibold text-white">Show my verse!</p>
             </Button>
