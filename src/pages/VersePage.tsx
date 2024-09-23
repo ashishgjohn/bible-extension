@@ -9,7 +9,7 @@ export default function VersePage() {
     const { data: verses, isLoading, error } = useVerses(score ?? 0);
 
     return (
-        <div className='w-[380px] m-auto resize-none'>
+        <div className='w-[380px] h-[100%] m-auto resize-none'>
             {error && (
                 <div className="w-full h-screen flex items-center justify-center">
                     <ErrorPlaceholder message="Internal Server Error" />
