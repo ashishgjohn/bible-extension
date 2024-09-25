@@ -57,7 +57,7 @@ function openPopup() {
     type: 'popup',
     width: 400,
     height: 600,
-    
+
   }, (newWindow) => {
     popupWindowId = newWindow.id;
   });
@@ -65,18 +65,29 @@ function openPopup() {
 
 
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.alarms.create('hourlyAlarm', {
-        delayInMinutes: 0.15,
-        periodInMinutes: 0.15
-    });
+  chrome.alarms.create('hourlyAlarm', {
+    delayInMinutes: 0.15,
+    periodInMinutes: 0.15
+  });
 });
 
 // Listen for the alarm event
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name === 'hourlyAlarm') {
-        console.log('Hourly alarm triggered, opening popup.');
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+  if (alarm.name === 'hourlyAlarm') {
+    console.log('Hourly alarm triggered, opening popup.');
+    const { time1 } = await chrome.storage.local.get('time1')
+    console.log(time1);
+    const { time2 } = await chrome.storage.local.get('time2')
+    console.log(time2);
+    const { time3 } = await chrome.storage.local.get('time3')
+    console.log(time3);
 
-        // chrome.action.openPopup();
-        openOrRefreshPopup();
+    const date = new Date(Date.now());
+    const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
+    console.log(formattedTime);
+
+    if (formattedTime === time1 || formattedTime === time2 || formattedTime === time3) {
+      openOrRefreshPopup();
     }
+  }
 });

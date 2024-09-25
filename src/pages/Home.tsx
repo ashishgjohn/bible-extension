@@ -3,15 +3,14 @@ import MoodSelector from "../components/home/MoodSelector";
 import bgImage from './../assets/imgs/bgImage1.png';
 import Button from "../components/ui/Button";
 import { FcSettings } from "react-icons/fc";
-import SettingsContainer from "../components/settings/SettingsContainer";
 import Logo from "../components/ui/Logo";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [mood, setMood] = useState<number>(0);
-    const [showSettings, setShowSettings] = useState<boolean>(false);
 
-    const handleClick = () => setShowSettings(true);
+    const handleClick = () => navigate('/settings');
 
     return (
         <div className="w-[380px] h-[600px] m-auto relative">
@@ -28,10 +27,6 @@ export default function Home() {
             <div className="absolute top-0 left-0 w-full">
                 <MoodSelector value={mood} onChange={setMood} />
             </div>
-
-            {showSettings && (
-                <SettingsContainer onClose={() => setShowSettings(false)} />
-            )}
         </div>
     );
 }
