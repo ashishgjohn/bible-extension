@@ -8,6 +8,6 @@ type TimeInputPropsType = {
 
 export default function TimeInput({ label, register }: TimeInputPropsType) {
     return (
-        <Input label={label} type='time' register={register} />
+        <Input label={label} type='time' register={register} className="p-2 px-4" />
     );
 }

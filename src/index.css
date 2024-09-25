@@ -6,6 +6,10 @@
     font-family: "Poppins", sans-serif;
 }
 
+html, body {
+    height: 100%;
+}
+
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
