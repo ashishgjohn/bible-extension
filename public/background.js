@@ -23,71 +23,108 @@
 //     }
 // }
 
-let popupWindowId = null;
+// let popupWindowId = null;
 
-// Function to open or refresh popup
-function openOrRefreshPopup() {
-  if (popupWindowId !== null) {
-    // Popup is already open, refresh it
-    chrome.windows.get(popupWindowId, (window) => {
-      if (window) {
-        console.log('Popup is already open, refreshing...');
-        // Refresh the popup content
-        chrome.tabs.query({ windowId: popupWindowId }, (tabs) => {
-          if (tabs.length > 0) {
-            chrome.tabs.reload(tabs[0].id);  // Reload the first tab in the popup window
-          }
-        });
-      } else {
-        // Window does not exist anymore, reset the ID and open it again
-        popupWindowId = null;
-        openPopup();
-      }
-    });
-  } else {
-    // Popup is not open, open a new one
-    openPopup();
-  }
-}
+// // Function to open or refresh popup
+// function openOrRefreshPopup() {
+//   if (popupWindowId !== null) {
+//     // Popup is already open, refresh it
+//     chrome.windows.get(popupWindowId, (window) => {
+//       if (window) {
+//         console.log('Popup is already open, refreshing...');
+//         // Refresh the popup content
+//         chrome.tabs.query({ windowId: popupWindowId }, (tabs) => {
+//           if (tabs.length > 0) {
+//             chrome.tabs.reload(tabs[0].id);  // Reload the first tab in the popup window
+//           }
+//         });
+//       } else {
+//         // Window does not exist anymore, reset the ID and open it again
+//         popupWindowId = null;
+//         openPopup();
+//       }
+//     });
+//   } else {
+//     // Popup is not open, open a new one
+//     openPopup();
+//   }
+// }
 
-// Function to open a new popup
-function openPopup() {
-  chrome.windows.create({
-    url: 'index.html',
-    type: 'popup',
-    width: 400,
-    height: 600,
+// // Function to open a new popup
+// function openPopup() {
+//   chrome.windows.create({
+//     url: 'index.html',
+//     type: 'popup',
+//     width: 400,
+//     height: 600,
 
-  }, (newWindow) => {
-    popupWindowId = newWindow.id;
+//   }, (newWindow) => {
+//     popupWindowId = newWindow.id;
+//   });
+// }
+
+
+// chrome.runtime.onInstalled.addListener(() => {
+//   chrome.alarms.create('hourlyAlarm', {
+//     delayInMinutes: 0.15,
+//     periodInMinutes: 0.15
+//   });
+// });
+
+// // Listen for the alarm event
+// chrome.alarms.onAlarm.addListener(async (alarm) => {
+//   if (alarm.name === 'hourlyAlarm') {
+//     console.log('Hourly alarm triggered, opening popup.');
+//     const { time1 } = await chrome.storage.local.get('time1')
+//     console.log(time1);
+//     const { time2 } = await chrome.storage.local.get('time2')
+//     console.log(time2);
+//     const { time3 } = await chrome.storage.local.get('time3')
+//     console.log(time3);
+
+//     const date = new Date(Date.now());
+//     const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
+//     console.log(formattedTime);
+
+//     if (formattedTime === time1 || formattedTime === time2 || formattedTime === time3) {
+//       openOrRefreshPopup();
+//     }
+//   }
+// });
+
+
+// chrome.action.onClicked.addListener((tab) => {
+//   // Inject CSS to position the sidebar
+//   chrome.scripting.insertCSS({
+//     target: { tabId: tab.id },
+//     files: ["style.css"]
+//   });
+
+//   // Inject HTML and JS to display the sidebar
+//   chrome.scripting.executeScript({
+//     target: { tabId: tab.id },
+//     files: ["injectSidebar.js"]
+//   });
+// });
+
+chrome.action.onClicked.addListener((tab) => {
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    files: ['injectSidebar.js']
+  }, () => {
+    chrome.tabs.sendMessage(tab.id, { action: 'createSidebar' });
   });
-}
 
-
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.alarms.create('hourlyAlarm', {
-    delayInMinutes: 0.15,
-    periodInMinutes: 0.15
-  });
+  // chrome.scripting.insertCSS({
+  //   target: { tabId: tab.id },
+  //   files: ["styles.css"]
+  // });
 });
 
-// Listen for the alarm event
-chrome.alarms.onAlarm.addListener(async (alarm) => {
-  if (alarm.name === 'hourlyAlarm') {
-    console.log('Hourly alarm triggered, opening popup.');
-    const { time1 } = await chrome.storage.local.get('time1')
-    console.log(time1);
-    const { time2 } = await chrome.storage.local.get('time2')
-    console.log(time2);
-    const { time3 } = await chrome.storage.local.get('time3')
-    console.log(time3);
-
-    const date = new Date(Date.now());
-    const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
-    console.log(formattedTime);
-
-    if (formattedTime === time1 || formattedTime === time2 || formattedTime === time3) {
-      openOrRefreshPopup();
-    }
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'removeSidebar') {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { action: 'removeSidebar' });
+    });
   }
 });

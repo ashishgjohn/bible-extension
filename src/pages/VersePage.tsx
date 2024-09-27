@@ -10,7 +10,7 @@ export default function VersePage() {
     const { data: verses, isLoading, error } = useVerses(score ?? 0);
 
     return (
-        <div className='w-[380px] h-[100%] m-auto resize-none relative'>
+        <div className='w-[400px] h-[100%] m-auto resize-none relative'>
             <Logo
                 classname="absolute p-4 top-6 left-6 z-10 bg-slate-800 bg-opacity-50 rounded-lg"
             />

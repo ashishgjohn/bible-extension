@@ -2,8 +2,8 @@ import ShareButton from "./ShareButton";
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import redirect from "../../hooks/redirect";
-import { RiInstagramFill } from "react-icons/ri";
-import { AiFillTikTok } from "react-icons/ai";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaSnapchatGhost } from "react-icons/fa";
 
 type VersePropsType = {
     reference: string;
@@ -31,19 +31,19 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
                         <FaFacebook size={36} className="hover:text-facebookColor " />
                     </ShareButton>
                     <ShareButton
-                        onClick={() => redirect(`https://twitter.com/intent/tweet?text=${postCaption}&url=https://i.pinimg.com/originals/f6/d6/4b/f6d64b382528bc02685b4b76fd55d7ad.png`)}
+                        onClick={() => redirect(`https://twitter.com/intent/tweet?text=${postCaption}&url=https://x.com`)}
                     >
                         <FaSquareXTwitter size={36} className="hover:text-black " />
                     </ShareButton>
                     <ShareButton
-                        onClick={() => redirect(`https://instagram.com`)}
+                        onClick={() => redirect(`https://api.whatsapp.com//send?text=${postCaption}&url=https://x.com`)}
                     >
-                        <RiInstagramFill size={36} className="hover:text-pink-600 " />
+                        <FaWhatsapp size={36} className="hover:text-green-400 " />
                     </ShareButton>
                     <ShareButton
-                        onClick={() => redirect(`https://www.tiktok.com`)}
+                        onClick={() => redirect(`https://snapchat.com/scan?attachmentUrl=${postCaption}`)}
                     >
-                        <AiFillTikTok size={36} className="hover:text-black" />
+                        <FaSnapchatGhost size={36} className="hover:text-yellow-300" />
                     </ShareButton>
                 </div>
             </div>

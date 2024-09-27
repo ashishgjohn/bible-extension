@@ -4,19 +4,28 @@
     "description": "Chrome Extension for The Holy Bible",
     "version": "1.0",
     "action": {
-        "default_popup": "index.html",
         "default_icon": "SelahVie-logo.png"
     },
     "permissions": [
         "sidePanel",
         "tabs",
         "storage",
-        "alarms"
+        "alarms",
+        "scripting",
+        "activeTab"
     ],
-    "side_panel": {
-        "default_path": "index.html"
-    },
     "background": {
         "service_worker": "background.js"
-    }
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "index.html",
+                "injectSidebar.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
 }
