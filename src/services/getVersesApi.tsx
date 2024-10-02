@@ -5,8 +5,20 @@ export default async function getVersesApi(score: number) {
         url: `/verses/${score}`,
         method: 'get',
     });
-    
+
     if (status !== 200) throw new Error('Failed to fetch verses');
+
+    return data;
+}
+
+export async function getVerseImage(text: string) {
+    const { data, status } = await axiosInstance.request({
+        url: `/images`,
+        method: 'get',
+        params: { text }
+    });
+
+    if (status !== 200) throw new Error('Failed to fetch image link');
 
     return data;
 }

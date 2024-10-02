@@ -8,6 +8,7 @@ import Logo from "../components/ui/Logo";
 export default function VersePage() {
     const { score } = useParams();
     const { data: verses, isLoading, error } = useVerses(score ?? 0);
+    console.error(error);
 
     return (
         <div className='w-[400px] h-[100%] m-auto resize-none relative'>

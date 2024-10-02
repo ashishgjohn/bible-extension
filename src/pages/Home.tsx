@@ -19,7 +19,7 @@ export default function Home() {
             />
             <Button
                 onClick={handleClick}
-                classname="absolute top-6 right-20 p-2 bg-slate-300 bg-opacity-60 rounded-lg z-10"
+                classname="absolute top-6 right-6 p-2 bg-slate-300 bg-opacity-60 rounded-lg z-10"
             >
                 <FcSettings size={24} />
             </Button>
