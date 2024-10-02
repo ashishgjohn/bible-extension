@@ -107,24 +107,36 @@
 //   });
 // });
 
+// chrome.action.onClicked.addListener((tab) => {
+//   chrome.scripting.executeScript({
+//     target: { tabId: tab.id },
+//     files: ['injectSidebar.js']
+//   }, () => {
+//     chrome.tabs.sendMessage(tab.id, { action: 'createSidebar' });
+//   });
+
+//   // chrome.scripting.insertCSS({
+//   //   target: { tabId: tab.id },
+//   //   files: ["styles.css"]
+//   // });
+// });
+
+// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+//   if (request.action === 'removeSidebar') {
+//     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+//       chrome.tabs.sendMessage(tabs[0].id, { action: 'removeSidebar' });
+//     });
+//   }
+// });
+
+let isSidebarOpen = false;
+
 chrome.action.onClicked.addListener((tab) => {
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     files: ['injectSidebar.js']
   }, () => {
-    chrome.tabs.sendMessage(tab.id, { action: 'createSidebar' });
+    chrome.tabs.sendMessage(tab.id, { action: isSidebarOpen ? 'removeSidebar' : 'createSidebar' });
+    isSidebarOpen = !isSidebarOpen;
   });
-
-  // chrome.scripting.insertCSS({
-  //   target: { tabId: tab.id },
-  //   files: ["styles.css"]
-  // });
-});
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === 'removeSidebar') {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'removeSidebar' });
-    });
-  }
 });
