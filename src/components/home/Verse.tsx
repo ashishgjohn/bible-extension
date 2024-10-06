@@ -17,22 +17,22 @@ type VersePropsType = {
     onClick: () => void;
 }
 
+const facebookCaption = "My verse for today’s journey | SelahVie https://selahvie-backend.onrender.com/";
+
 export default function Verse({ reference, text, image, onClick }: VersePropsType) {
     const postCaption = `${text} - ${reference}`;
     const [url, setUrl] = useState<string | null>(null);
     const { mutate, isPending } = useMutation({
         mutationKey: ['verseImage'],
         mutationFn: () => getVerseImage(`${text} - ${reference}`),
-        onSuccess: (data) => {
-            console.log(`${url}${data.imageUrl}`);
-            window.open(`${url}${data.imageUrl}`, '_blank', 'noopener,noreferrer')
-            redirect(`${url}${data.imageUrl}`);
+        onSuccess: (data) => {            
+            window.open(`${url}${data.imageUrl}`, '_blank')
         },
         onError: (error) => {
             console.log(error);
         }
     });
-    
+
     async function handleClick(url: string) {
         setUrl(url);
         mutate();
@@ -54,12 +54,12 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
                     ) : (
                         <>
                             <ShareButton
-                                onClick={() => handleClick(`https://www.facebook.com/dialog/share?app_id=466015839919233&display=popup&hashtag=${encodeURIComponent(postCaption)}&href=`)}
+                                onClick={() => handleClick(`https://www.facebook.com/dialog/share?app_id=466015839919233&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=`)}
                             >
                                 <FaFacebook size={36} className="hover:text-facebookColor " />
                             </ShareButton>
                             <ShareButton
-                                onClick={() => handleClick(`https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=`)}
+                                onClick={() => redirect(`https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=${encodeURIComponent('https://selahvie-backend.onrender.com/')}`)}
                             >
                                 <FaSquareXTwitter size={36} className="hover:text-black " />
                             </ShareButton>
