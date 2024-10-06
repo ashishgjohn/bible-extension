@@ -1,26 +1,25 @@
-import { UseFormRegisterReturn } from "react-hook-form";
+import * as React from "react"
 
-type InputPropsType = {
-    type: string;
-    label: string;
-    register: UseFormRegisterReturn;
-    className?: string;
-    min?: number;
-    max?: number;
-}
+import { cn } from "@/lib/utils"
 
-export default function Input({ type, label, register, className, max, min }: InputPropsType) {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, ...props }, ref) => {
     return (
-        <div className="w-full flex flex-col gap-1 justify-center items-start">
-            <p className="font-semibold text-sm capitalize">{label}</p>
-            <input
-                type={type}
-                title="Input"
-                className={`w-full border-2 outline-none p-1 px-2 rounded-lg ${className}`}
-                {...register}
-                min={min}
-                max={max}
-            />
-        </div>
+      <input
+        type={type}
+        className={cn(
+          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
     )
-}
+  }
+)
+Input.displayName = "Input"
+
+export { Input }

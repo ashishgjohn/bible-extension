@@ -22,7 +22,7 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
     const [url, setUrl] = useState<string | null>(null);
     const { mutate, isPending } = useMutation({
         mutationKey: ['verseImage'],
-        mutationFn: () => getVerseImage(text),
+        mutationFn: () => getVerseImage(`${text} - ${reference}`),
         onSuccess: (data) => {
             console.log(`${url}${data.imageUrl}`);
             window.open(`${url}${data.imageUrl}`, '_blank', 'noopener,noreferrer')
