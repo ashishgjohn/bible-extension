@@ -8,7 +8,7 @@ interface TimePickerDemoProps {
   setDate: (date: Date) => void;
 }
 
-export function TimePicker12Demo({ date, setDate }: TimePickerDemoProps) {
+export function TimePicker12Hour({ date, setDate }: TimePickerDemoProps) {
   const [period, setPeriod] = React.useState<Period>(
     function () {
       if (date?.getHours() > 12) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "../ui/Button";
 import toast from "react-hot-toast";
-import { TimePicker12Demo } from "../ui/TimePickerInput12H";
+import { TimePicker12Hour } from "../ui/TimePickerInput12Hour";
 import Loader from "../ui/Loader";
 
 type TimeInputPropsType = {
@@ -25,9 +25,6 @@ export default function TimeInput({ index }: TimeInputPropsType) {
     }, [index]);
 
     function handleClick() {
-        console.log(time);
-        console.log(formattedDate);
-
         chrome.storage.local.set({ [`time${index}`]: formattedDate });
         chrome.storage.local.set({ [`openedForTime${index}`]: false });
         toast.success("Saved!")
@@ -40,10 +37,11 @@ export default function TimeInput({ index }: TimeInputPropsType) {
                     <Loader />
                 ) : (
                     <>
-                        <TimePicker12Demo date={time} setDate={(t: Date) => setTime(t)} />
+                        <TimePicker12Hour date={time} setDate={(t: Date) => setTime(t)} />
+                        <p className="mt-12 font-medium text-xl uppercase tracking-wider text-wrap ">Set timers for your Selahvie</p>
                         <Button
                             onClick={handleClick}
-                            classname="mt-36 bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 w-full p-3 rounded-xl self-center justify-self-end "
+                            classname="mt-20 bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 w-full p-3 rounded-xl self-center justify-self-end "
                         >
                             <p className="text-base font-semibold text-white">Save!</p>
                         </Button>
