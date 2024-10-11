@@ -8,7 +8,10 @@ import {
   getDateByType,
   setDateByType,
 } from "./time-picker-utils";
- 
+import { FaCaretUp } from "react-icons/fa";
+import { FaCaretDown } from "react-icons/fa";
+import Button from "./Button";
+
 export interface TimePickerInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   picker: TimePickerType;
@@ -18,7 +21,7 @@ export interface TimePickerInputProps
   onRightFocus?: () => void;
   onLeftFocus?: () => void;
 }
- 
+
 const TimePickerInput = React.forwardRef<
   HTMLInputElement,
   TimePickerInputProps
@@ -50,24 +53,24 @@ const TimePickerInput = React.forwardRef<
         const timer = setTimeout(() => {
           setFlag(false);
         }, 2000);
- 
+
         return () => clearTimeout(timer);
       }
     }, [flag]);
- 
+
     const calculatedValue = React.useMemo(() => {
       return getDateByType(date, picker);
     }, [date, picker]);
- 
+
     const calculateNewValue = (key: string) => {
       if (picker === "12hours") {
         if (flag && calculatedValue.slice(1, 2) === "1" && prevIntKey === "0")
           return "0" + key;
       }
- 
+
       return !flag ? "0" + key : calculatedValue.slice(1, 2) + key;
     };
- 
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Tab") return;
       e.preventDefault();
@@ -82,7 +85,7 @@ const TimePickerInput = React.forwardRef<
       }
       if (e.key >= "0" && e.key <= "9") {
         if (picker === "12hours") setPrevIntKey(e.key);
- 
+
         const newValue = calculateNewValue(e.key);
         if (flag) onRightFocus?.();
         setFlag((prev) => !prev);
@@ -90,33 +93,51 @@ const TimePickerInput = React.forwardRef<
         setDate(setDateByType(tempDate, newValue, picker, period));
       }
     };
- 
+
+    const handleStep = (step: number) => {
+      const newValue = getArrowByType(calculatedValue, step, picker);
+      const tempDate = new Date(date);
+      setDate(setDateByType(tempDate, newValue, picker, period));
+    };
+
     return (
-      <Input
-        ref={ref}
-        id={id || picker}
-        name={name || picker}
-        className={cn(
-          "w-[48px] text-center font-mono text-base tabular-nums caret-transparent focus:bg-accent focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
-          className
-        )}
-        value={value || calculatedValue}
-        onChange={(e) => {
-          e.preventDefault();
-          onChange?.(e);
-        }}
-        type={type}
-        inputMode="decimal"
-        onKeyDown={(e) => {
-          onKeyDown?.(e);
-          handleKeyDown(e);
-        }}
-        {...props}
-      />
+      <div className="flex flex-col justify-between items-center gap-1">
+        <Button
+          onClick={() => handleStep(1)}
+        >
+          <FaCaretUp size={16} />
+        </Button>
+        <Input
+          ref={ref}
+          id={id || picker}
+          name={name || picker}
+          className={cn(
+            "w-[48px] text-center font-mono text-base tabular-nums caret-transparent focus:bg-accent focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
+            className
+          )}
+          value={value || calculatedValue}
+          onChange={(e) => {
+            e.preventDefault();
+            onChange?.(e);
+          }}
+          type={type}
+          inputMode="decimal"
+          onKeyDown={(e) => {
+            onKeyDown?.(e);
+            handleKeyDown(e);
+          }}
+          {...props}
+        />
+        <Button
+          onClick={() => handleStep(-1)}
+        >
+          <FaCaretDown size={16} />
+        </Button>
+      </div>
     );
   }
 );
- 
+
 TimePickerInput.displayName = "TimePickerInput";
- 
+
 export { TimePickerInput };
