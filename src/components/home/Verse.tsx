@@ -8,6 +8,8 @@ import { useMutation } from "@tanstack/react-query";
 import { getVerseImage } from "../../services/getVersesApi";
 import Loader from "../ui/Loader";
 import { useState } from "react";
+import Button from "../ui/Button";
+import { IoClose } from "react-icons/io5";
 
 type VersePropsType = {
     reference: string;
@@ -25,7 +27,7 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
     const { mutate, isPending } = useMutation({
         mutationKey: ['verseImage'],
         mutationFn: () => getVerseImage(`${text} - ${reference}`),
-        onSuccess: (data) => {            
+        onSuccess: (data) => {
             window.open(`${url}${data.imageUrl}`, '_blank')
         },
         onError: (error) => {
@@ -38,8 +40,23 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
         mutate();
     }
 
+    function handleClose() {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const activeTab = tabs[0];
+            chrome.tabs.sendMessage(activeTab.id ?? 0, { action: 'removeSidebar' });
+        });
+    }
+
     return (
         <div className="w-full h-full relative">
+            <Button
+                onClick={handleClose}
+                classname="closeBtn absolute top-6 right-6 p-4 bg-slate-700 bg-opacity-50 rounded-lg"
+            >
+                <IoClose size={18} color="#fff" />
+            </Button>
+
+
             <img src={image} alt="" className='c w-full h-full' loading="eager" onClick={onClick} />
 
             <div className='absolute w-full h-min-[35%] bottom-0 flex flex-col gap-8 p-8 justify-center items-center text-white bg-slate-800 bg-opacity-50 '>
