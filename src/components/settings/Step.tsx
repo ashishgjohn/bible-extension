@@ -11,7 +11,7 @@ export default function Step({ index, currentStep, onClick }: StepPropsType) {
     return (
         <div
             onClick={handleClick}
-            className={`w-8 h-8 flex justify-center items-center rounded-full ${style}`}
+            className={`w-8 h-8 flex justify-center items-center cursor-pointer rounded-full ${style}`}
         >
             <p className="text-sm font-medium">{index}</p>
         </div>
