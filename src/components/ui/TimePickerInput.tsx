@@ -104,6 +104,7 @@ const TimePickerInput = React.forwardRef<
       <div className="flex flex-col justify-between items-center gap-1">
         <Button
           onClick={() => handleStep(1)}
+          classname="hover:bg-slate-200 p-[2px] rounded-full"
         >
           <FaCaretUp size={16} />
         </Button>
@@ -130,6 +131,7 @@ const TimePickerInput = React.forwardRef<
         />
         <Button
           onClick={() => handleStep(-1)}
+          classname="hover:bg-slate-200 p-[2px] rounded-full" 
         >
           <FaCaretDown size={16} />
         </Button>
