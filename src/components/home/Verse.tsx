@@ -24,11 +24,11 @@ const facebookCaption = "My verse for today’s journey | SelahVie https://selah
 export default function Verse({ reference, text, image, onClick }: VersePropsType) {
     const postCaption = `${text} - ${reference}`;
     const [url, setUrl] = useState<string | null>(null);
-    const { mutate, isPending } = useMutation({
-        mutationKey: ['verseImage'],
+    const { mutate, isPending, data } = useMutation({
+        mutationKey: ['verseImage', text],
         mutationFn: () => getVerseImage(`${text} - ${reference}`),
         onSuccess: (data) => {
-            window.open(`${url}${data.imageUrl}`, '_blank')
+            window.open(`${url}${data.imageUrl}`, '_blank');
         },
         onError: (error) => {
             console.log(error);
@@ -36,8 +36,12 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
     });
 
     async function handleClick(url: string) {
-        setUrl(url);
-        mutate();
+        if (data) {
+            window.open(`${url}${data.imageUrl}`, '_blank');
+        } else {
+            setUrl(url);
+            mutate();
+        }
     }
 
     function handleClose() {
@@ -76,7 +80,7 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
                                 <FaFacebook size={36} className="hover:text-facebookColor " />
                             </ShareButton>
                             <ShareButton
-                                onClick={() => redirect(`https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=${encodeURIComponent('https://selahvie-backend.onrender.com/')}`)}
+                                onClick={() => redirect(`https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}}`)}
                             >
                                 <FaSquareXTwitter size={36} className="hover:text-black " />
                             </ShareButton>
@@ -97,3 +101,5 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
         </div>
     )
 }
+
+// https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=${encodeURIComponent('https://selahvie-backend.onrender.com/')}
