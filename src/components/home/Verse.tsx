@@ -52,7 +52,7 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
     }
 
     return (
-        <div className="w-full h-full relative">
+        <div className="w-full h-full relative overflow-hidden">
             <Button
                 onClick={handleClose}
                 classname="closeBtn absolute top-6 right-6 p-4 bg-slate-700 bg-opacity-50 rounded-lg"
@@ -61,7 +61,7 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
             </Button>
 
 
-            <img src={image} alt="" className='c w-full h-full' loading="eager" onClick={onClick} />
+            <img src={image} alt="" className='object-cover h-full' loading="eager" onClick={onClick} />
 
             <div className='absolute w-full h-min-[35%] bottom-0 flex flex-col gap-8 p-8 justify-center items-center text-white bg-slate-800 bg-opacity-50 '>
                 <div onClick={onClick} className="flex flex-col gap-8 justify-center items-center">
