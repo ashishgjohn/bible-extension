@@ -80,7 +80,7 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
                                 <FaFacebook size={36} className="hover:text-facebookColor " />
                             </ShareButton>
                             <ShareButton
-                                onClick={() => redirect(`https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}}`)}
+                                onClick={() => redirect(`https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=https://selahvie-backend.onrender.com/imgs/output-1728929148519.jpg`)}
                             >
                                 <FaSquareXTwitter size={36} className="hover:text-black " />
                             </ShareButton>
@@ -102,4 +102,12 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
     )
 }
 
+// https://selahvie-backend.onrender.com/imgs/output-1728929148519.jpg
 // https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=${encodeURIComponent('https://selahvie-backend.onrender.com/')}
+
+// const shareToTwitter = () => {
+//     const twitterShareUrl = https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent(hashtags.join(','))};
+    
+//     // Open the Twitter share URL in a new window
+//     window.open(twitterShareUrl, '_blank', 'noopener,noreferrer');
+//   };
