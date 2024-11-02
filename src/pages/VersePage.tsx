@@ -7,7 +7,7 @@ import Logo from "../components/ui/Logo";
 
 export default function VersePage() {
     const { score } = useParams();
-    const { data: verses, isLoading, error } = useVerses(score ?? 0);
+    const { data, isLoading, error, isSuccess } = useVerses(score ?? 0);
     console.error(error);
 
     return (
@@ -26,8 +26,8 @@ export default function VersePage() {
                 </div>
             ) : (
                 <>
-                    {!error && (
-                        <VersesContainer verses={verses} />
+                    {isSuccess && (
+                        <VersesContainer verses={data.verses} images={data.images} />
                     )}
                 </>
             )}
