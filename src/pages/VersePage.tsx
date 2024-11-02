@@ -15,6 +15,7 @@ export default function VersePage() {
             <Logo
                 classname="absolute p-4 top-6 left-6 z-10 bg-slate-800 bg-opacity-50 rounded-lg"
             />
+
             {error && (
                 <div className="w-full h-screen flex items-center justify-center">
                     <ErrorPlaceholder message="Internal Server Error" />

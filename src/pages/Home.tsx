@@ -5,6 +5,7 @@ import Button from "../components/ui/Button";
 import { FcSettings } from "react-icons/fc";
 import Logo from "../components/ui/Logo";
 import { useNavigate } from "react-router-dom";
+import CloseButton from "@/components/ui/CloseButton";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -19,10 +20,13 @@ export default function Home() {
             />
             <Button
                 onClick={handleClick}
-                classname="absolute top-6 right-6 p-2 bg-slate-300 bg-opacity-60 rounded-lg z-10"
+                classname="absolute top-6 right-20 p-2 bg-slate-300 bg-opacity-60 rounded-lg z-10"
             >
                 <FcSettings size={24} />
             </Button>
+
+            <CloseButton className="absolute p-3 top-6 right-6 bg-slate-300 bg-opacity-60 rounded-lg " />
+
             <img src={bgImage} alt="background" className="w-[400px] h-screen object-cover" />
             <div className="absolute top-0 left-0 w-full">
                 <MoodSelector value={mood} onChange={setMood} />

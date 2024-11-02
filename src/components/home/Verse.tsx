@@ -8,8 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { getVerseImage } from "../../services/getVersesApi";
 import Loader from "../ui/Loader";
 import { useState } from "react";
-import Button from "../ui/Button";
-import { IoClose } from "react-icons/io5";
+import CloseButton from "../ui/CloseButton";
 
 type VersePropsType = {
     reference: string;
@@ -44,22 +43,9 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
         }
     }
 
-    function handleClose() {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            const activeTab = tabs[0];
-            chrome.tabs.sendMessage(activeTab.id ?? 0, { action: 'removeSidebar' });
-        });
-    }
-
     return (
         <div className="w-full h-full relative overflow-hidden">
-            <Button
-                onClick={handleClose}
-                classname="closeBtn absolute top-6 right-6 p-4 bg-slate-700 bg-opacity-50 rounded-lg"
-            >
-                <IoClose size={18} color="#fff" />
-            </Button>
-
+            <CloseButton className="absolute p-4 top-6 right-6 bg-slate-700 bg-opacity-50 rounded-lg" />
 
             <img src={image} alt="" className='object-cover h-full' loading="eager" onClick={onClick} />
 
