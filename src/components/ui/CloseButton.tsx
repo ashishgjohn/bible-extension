@@ -16,7 +16,7 @@ export default function CloseButton({ className }: CloseButtonPropsType) {
     return (
         <Button
             onClick={handleClose}
-            classname={`closeBtn ${className}`}
+            classname={`closeBtn cursor-pointer z-50 ${className}`}
         >
             <IoClose size={18} color="#fff" />
         </Button>
