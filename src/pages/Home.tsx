@@ -14,9 +14,9 @@ export default function Home() {
     const handleClick = () => navigate('/settings');
 
     return (
-        <div className="w-[400px] h-[600px] m-auto relative">
+        <div className="home w-[400px] h-screen m-auto relative">
             <Logo
-                classname="absolute top-6 left-32"
+                classname="w-[158px] h-[158px] absolute top-6 left-32"
             />
             <Button
                 onClick={handleClick}
@@ -28,9 +28,7 @@ export default function Home() {
             <CloseButton className="absolute top-6 right-6 p-2 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] z-10" />
 
             <img src={bgImage} alt="background" className="w-[400px] h-screen object-cover" />
-            <div className="absolute top-0 left-0 w-full">
-                <MoodSelector value={mood} onChange={setMood} />
-            </div>
+            <MoodSelector value={mood} onChange={setMood} />
         </div>
     );
 }

@@ -6,12 +6,10 @@ type LogoPropsType = {
 
 export default function Logo({ classname }: LogoPropsType) {
     return (
-        <div className={`flex justify-center items-center ${classname}`}>
-            <img
-                src={logo}
-                title="Logo"
-                className="w-[158px] h-[158px]"
-            />
-        </div>
+        <img
+            src={logo}
+            title="Logo"
+            className={classname}
+        />
     );
 }
