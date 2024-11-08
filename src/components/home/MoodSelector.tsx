@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 import Slider from "../ui/Slider";
+import star from "./../../assets/imgs/Star.png";
 
 type MoodSelectorPropsType = {
     value: number;
@@ -33,9 +34,12 @@ export default function MoodSelector({ value, onChange }: MoodSelectorPropsType)
 
             <Button
                 onClick={handleClick}
-                classname="bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 w-full p-3 px-4 rounded-xl self-center justify-self-end "
+                classname="w-full p-4 bg-black flex justify-center items-center gap-2 rounded-xl"
             >
-                <p className="text-base font-semibold text-white">Show my verse!</p>
+                <>
+                    <img src={star} title="star icon" className="w-[13px] h-[17px]" />
+                    <p className="text-base font-semibold text-white">Show my verse!</p>
+                </>
             </Button>
         </div>
     );
