@@ -1,13 +1,12 @@
-import logo from "./../../assets/imgs/SelahVieLogo.webp";
-
 type LogoPropsType = {
-    classname?: string
+    classname?: string;
+    img: string;
 }
 
-export default function Logo({ classname }: LogoPropsType) {
+export default function Logo({ img, classname }: LogoPropsType) {
     return (
         <img
-            src={logo}
+            src={img}
             title="Logo"
             className={classname}
         />

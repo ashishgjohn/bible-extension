@@ -6,6 +6,7 @@ import Logo from "../components/ui/Logo";
 import { useNavigate } from "react-router-dom";
 import CloseButton from "@/components/ui/CloseButton";
 import settings from './../assets/imgs/Settings.png';
+import logo from './../assets/imgs/SelahVieLogo.webp';
 
 export default function Home() {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function Home() {
     return (
         <div className="home w-[400px] h-screen m-auto relative">
             <Logo
+                img={logo}
                 classname="w-[158px] h-[158px] absolute top-6 left-32"
             />
             <Button

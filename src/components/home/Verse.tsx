@@ -1,14 +1,15 @@
 import ShareButton from "./ShareButton";
 import { FaFacebook } from "react-icons/fa";
-import { FaSquareXTwitter } from "react-icons/fa6";
-import redirect from "../../hooks/redirect";
-import { FaWhatsapp } from "react-icons/fa";
-import { FaSnapchatGhost } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { getVerseImage } from "../../services/getVersesApi";
 import Loader from "../ui/Loader";
+import back from './../../assets/imgs/ArrowLeft.png'
 import { useState } from "react";
 import CloseButton from "../ui/CloseButton";
+import Button from "../ui/Button";
+import { useNavigate } from "react-router-dom";
+import Logo from "../ui/Logo";
+import logo from "./../../assets/imgs/SelahvieLogoWhite.webp";
 
 type VersePropsType = {
     reference: string;
@@ -21,7 +22,8 @@ type VersePropsType = {
 const facebookCaption = "My verse for today’s journey | SelahVie https://selahvie-backend.onrender.com/";
 
 export default function Verse({ reference, text, image, onClick }: VersePropsType) {
-    const postCaption = `${text} - ${reference}`;
+    const navigate = useNavigate();
+    // const postCaption = `${text} - ${reference}`;
     const [url, setUrl] = useState<string | null>(null);
     const { mutate, isPending, data } = useMutation({
         mutationKey: ['verseImage', text],
@@ -45,27 +47,56 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
 
     return (
         <div className="w-full h-full relative overflow-hidden">
-            <CloseButton className="absolute p-4 top-6 right-6 bg-slate-700 bg-opacity-50 rounded-lg" />
+            <Button
+                onClick={() => navigate(-1)}
+                classname="absolute top-6 left-6 p-2 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] z-10"
+            >
+                <img src={back} title="settings logo" className="w-[17.50px] h-[16.16px]" />
+            </Button>
+
+            <CloseButton className="absolute top-6 right-6 p-2 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] z-10" />
 
             <img src={image} alt="" className='object-cover h-full' loading="eager" onClick={onClick} />
 
-            <div className='absolute w-full h-min-[35%] bottom-0 flex flex-col gap-8 p-8 justify-center items-center text-white bg-slate-800 bg-opacity-50 '>
-                <div onClick={onClick} className="flex flex-col gap-8 justify-center items-center">
-                    <p className='text-center text-base'>{text}</p>
-                    <p className='text-center font-semibold text-sm'>{reference}</p>
-                </div>
+            <div className='absolute w-full h-min-[35%] bottom-0 flex flex-col gap-2 p-2 justify-center items-center'>
+                <div className="w-full p-6 relative flex flex-col gap-8 justify-start items-start bg-white/50 rounded-[10px] border border-white/50 backdrop-blur-[30px]">
+                    <p className="text-center text-black/80 text-xs font-normal font-['Montserrat'] leading-3 tracking-wide">{reference}</p>
+                    <p className="text-center text-black text-lg font-normal font-['Montserrat'] leading-tight">{text}</p>
 
-                <div className="w-full flex justify-center items-center gap-12">
+                    <Logo
+                        img={logo}
+                        classname="w-[80.43px] h-[97.73px] absolute top-[-45px] right-10"
+                    />
+                </div>
+                <ShareButton
+                    onClick={() => handleClick(`https://www.facebook.com/dialog/share?app_id=466015839919233&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=`)}
+                    disabled={isPending}
+                >
                     {isPending ? (
                         <Loader />
                     ) : (
-                        <>
-                            <ShareButton
-                                onClick={() => handleClick(`https://www.facebook.com/dialog/share?app_id=466015839919233&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=`)}
-                            >
-                                <FaFacebook size={36} className="hover:text-facebookColor " />
-                            </ShareButton>
-                            <ShareButton
+                        <div className="flex justify-center items-center gap-2">
+                            <FaFacebook size={20} className="hover:text-facebookColor " />
+                            <p className="text-center text-black text-lg font-medium font-['Medino']">Share</p>
+                        </div>
+                    )}
+                </ShareButton>
+            </div>
+        </div>
+    )
+}
+
+// https://selahvie-backend.onrender.com/imgs/output-1728929148519.jpg
+// https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=${encodeURIComponent('https://selahvie-backend.onrender.com/')}
+
+// const shareToTwitter = () => {
+//     const twitterShareUrl = https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent(hashtags.join(','))};
+
+//     // Open the Twitter share URL in a new window
+//     window.open(twitterShareUrl, '_blank', 'noopener,noreferrer');
+//   };
+
+{/* <ShareButton
                                 onClick={() => redirect(`https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=https://selahvie-backend.onrender.com/imgs/output-1728929148519.jpg`)}
                             >
                                 <FaSquareXTwitter size={36} className="hover:text-black " />
@@ -79,21 +110,4 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
                                 onClick={() => redirect(`https://snapchat.com/scan?attachmentUrl=${encodeURIComponent(postCaption)}`)}
                             >
                                 <FaSnapchatGhost size={36} className="hover:text-yellow-300" />
-                            </ShareButton>
-                        </>
-                    )}
-                </div>
-            </div>
-        </div>
-    )
-}
-
-// https://selahvie-backend.onrender.com/imgs/output-1728929148519.jpg
-// https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=${encodeURIComponent('https://selahvie-backend.onrender.com/')}
-
-// const shareToTwitter = () => {
-//     const twitterShareUrl = https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent(hashtags.join(','))};
-    
-//     // Open the Twitter share URL in a new window
-//     window.open(twitterShareUrl, '_blank', 'noopener,noreferrer');
-//   };
+                            </ShareButton> */}
