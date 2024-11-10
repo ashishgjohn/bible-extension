@@ -2,8 +2,77 @@ import TimeInput from "./TimeInput";
 import settings from "./../../assets/imgs/SettingsBg.webp";
 import Button from "../ui/Button";
 import star from './../../assets/imgs/StarBlack.png';
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import Loader from "../ui/Loader";
+
+type Time = {
+    time: string;
+    opened: boolean;
+    isEnabled: boolean
+}
+
+type Times = {
+    time1: Time;
+    time2: Time;
+    time3: Time;
+}
 
 export default function SettingsContainer() {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    const [times, setTimes] = useState<Times>({
+        time1: { time: "00:00", opened: false, isEnabled: true },
+        time2: { time: "00:00", opened: false, isEnabled: true },
+        time3: { time: "00:00", opened: false, isEnabled: true },
+    });
+
+    useEffect(() => {
+        setIsLoading(true);
+        chrome.storage.local.get(['time1', 'time2', 'time3', 'openedForTime1', 'openedForTime2', 'openedForTime3', 'enabled1', 'enabled2', 'enabled3'], (result) => {
+
+            setTimes({
+                time1: { time: result['time1'], opened: result['openedForTime1'], isEnabled: result['enabled1'] ?? true },
+                time2: { time: result['time2'], opened: result['openedForTime2'], isEnabled: result['enabled2'] ?? true },
+                time3: { time: result['time3'], opened: result['openedForTime3'], isEnabled: result['enabled3'] ?? true }
+            });
+
+            setIsLoading(false);
+        });
+
+    }, []);
+
+    function handleTimeChange(index: number, newTime: string) {
+        setTimes((prevTimes) => ({
+            ...prevTimes,
+            [`time${index}`]: { ...prevTimes[`time${index}` as keyof Times], time: newTime }
+        }));
+    }
+
+    function handleToggleChange(index: number, isEnabled: boolean) {
+        setTimes((prevTimes) => ({
+            ...prevTimes,
+            [`time${index}` as keyof Times]: { ...prevTimes[`time${index}` as keyof Times], isEnabled }
+        }));
+    }
+
+    function handleSave() {
+        const updatedTimes = {
+            time1: times?.time1.time,
+            time2: times?.time2.time,
+            time3: times?.time3.time,
+            openedForTime1: times?.time1.opened,
+            openedForTime2: times?.time2.opened,
+            openedForTime3: times?.time3.opened,
+            enabled1: times?.time1.isEnabled,
+            enabled2: times?.time2.isEnabled,
+            enabled3: times?.time3.isEnabled,
+        };
+        chrome.storage.local.set(updatedTimes, () => {
+            toast.success("Saved!");
+        });
+    }
+
     return (
         <div className="w-full">
             <img src={settings} title="setings bg" className="w-full h-screen" />
@@ -12,15 +81,37 @@ export default function SettingsContainer() {
                     <p className="text-center text-white text-base font-normal uppercase">timers</p>
 
                     <div className="w-full p-2 flex flex-col justify-center items-center gap-2">
-                        <TimeInput index={1} />
-                        <TimeInput index={2} />
-                        <TimeInput index={3} />
+                        {isLoading ? (
+                            <Loader />
+                        ) : (<>
+                            <TimeInput
+                                index={1}
+                                time={times.time1.time}
+                                isEnabled={times.time1.isEnabled}
+                                onTimeChange={(time) => handleTimeChange(1, time)}
+                                onToggleChange={(enable) => handleToggleChange(1, enable)}
+                            />
+                            <TimeInput
+                                index={2}
+                                time={times.time2.time}
+                                isEnabled={times.time2.isEnabled}
+                                onTimeChange={(time) => handleTimeChange(2, time)}
+                                onToggleChange={(enable) => handleToggleChange(2, enable)}
+                            />
+                            <TimeInput
+                                index={3}
+                                time={times.time3.time}
+                                isEnabled={times.time3.isEnabled}
+                                onTimeChange={(time) => handleTimeChange(3, time)}
+                                onToggleChange={(enable) => handleToggleChange(3, enable)}
+                            />
+                        </>)}
                     </div>
 
                     <p className="text-center text-[#959595] text-xs font-normal font-['Montserrat']">You can enable or disable multiple <br /> timers with their toggles. </p>
 
                     <Button
-                        onClick={() => { }}
+                        onClick={handleSave}
                         classname="w-full p-3 bg-white rounded-[10px] flex-col justify-center items-center gap-2.5 inline-flex"
                     >
                         <div className="w-full flex justify-center items-center gap-2">

@@ -11,14 +11,30 @@ interface TimePickerDemoProps {
 export function TimePicker12Hour({ date, setDate }: TimePickerDemoProps) {
   const [period, setPeriod] = React.useState<Period>(
     function () {
-      if (date?.getHours() > 12) {
-        return "PM";
-      }
-      return "AM";
+      return date?.getHours() > 12 ? "PM" : "AM"
     }
   );
+  
   const minuteRef = React.useRef<HTMLInputElement>(null);
   const hourRef = React.useRef<HTMLInputElement>(null);
+
+  function handlePeriodChange(newPeriod: Period) {
+    if (period !== newPeriod) {
+      setPeriod(newPeriod);
+
+      const newDate = new Date(date);
+      let hours = newDate.getHours();
+
+      if (newPeriod === "PM" && hours < 12) {
+        hours += 12;
+      } else if (newPeriod === "AM" && hours >= 12) {
+        hours -= 12;
+      }
+
+      newDate.setHours(hours);
+      setDate(newDate);
+    }
+  }
 
   return (
     <div className="flex items-center gap-2">
@@ -30,6 +46,7 @@ export function TimePicker12Hour({ date, setDate }: TimePickerDemoProps) {
           setDate={setDate}
           ref={hourRef}
           onRightFocus={() => minuteRef.current?.focus()}
+          className="rounded-[5px]"
         />
       </div>
       <p className="font-semibold text-xl text-white">:</p>
@@ -37,17 +54,19 @@ export function TimePicker12Hour({ date, setDate }: TimePickerDemoProps) {
         <TimePickerInput
           picker="minutes"
           id="minutes12"
+          period={period}
           date={date}
           setDate={setDate}
           ref={minuteRef}
           onLeftFocus={() => hourRef.current?.focus()}
+          className="rounded-[5px]"
         />
       </div>
       <div className="grid gap-1 text-center">
-        <Tabs defaultValue="account" className="w-[4px] p-0">
-          <TabsList className="p-0 h-[30px]">
-            <TabsTrigger value="AM" defaultChecked onClick={() => setPeriod("AM")} className="font-[Montserrat] font-semibold">AM</TabsTrigger>
-            <TabsTrigger value="PM" onClick={() => setPeriod("PM")} className="font-[Montserrat] font-semibold">PM</TabsTrigger>
+        <Tabs defaultValue={period} className="w-[4px] p-0 rounded-[5px]">
+          <TabsList className="p-0 h-[30px] rounded-[5px]">
+            <TabsTrigger value="AM" onClick={() => handlePeriodChange("AM")} className="font-[Montserrat] rounded-[5px] text-xs font-semibold">AM</TabsTrigger>
+            <TabsTrigger value="PM" onClick={() => handlePeriodChange("PM")} className="font-[Montserrat] rounded-[5px] text-xs font-semibold">PM</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>

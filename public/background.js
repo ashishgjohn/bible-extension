@@ -51,25 +51,28 @@ function resetDailyFlags() {
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === 'hourlyAlarm') {
-    const { time1, time2, time3, openedForTime1, openedForTime2, openedForTime3 } = await chrome.storage.local.get({
+    const { time1, time2, time3, openedForTime1, openedForTime2, openedForTime3, enabled1, enabled2, enabled3 } = await chrome.storage.local.get({
       time1: null,
       time2: null,
       time3: null,
       openedForTime1: false,
       openedForTime2: false,
-      openedForTime3: false
+      openedForTime3: false,
+      enabled1: true,
+      enabled2: true,
+      enabled3: true,
     });
 
     const date = new Date(Date.now());
     const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
 
-    if (formattedTime === time1 && !openedForTime1) {
+    if (formattedTime === time1 && !openedForTime1 && enabled1) {
       injectSidebar(true);
       await chrome.storage.local.set({ openedForTime1: true });
-    } else if (formattedTime === time2 && !openedForTime2) {
+    } else if (formattedTime === time2 && !openedForTime2 && enabled2) {
       injectSidebar(true);
       await chrome.storage.local.set({ openedForTime2: true });
-    } else if (formattedTime === time3 && !openedForTime3) {
+    } else if (formattedTime === time3 && !openedForTime3 && enabled3) {
       injectSidebar(true);
       await chrome.storage.local.set({ openedForTime3: true });
     }

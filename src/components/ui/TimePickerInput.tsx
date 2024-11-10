@@ -91,26 +91,14 @@ const TimePickerInput = React.forwardRef<
       }
     };
 
-    // const handleStep = (step: number) => {
-    //   const newValue = getArrowByType(calculatedValue, step, picker);
-    //   const tempDate = new Date(date);
-    //   setDate(setDateByType(tempDate, newValue, picker, period));
-    // };
-
     return (
       <div className="flex flex-col justify-between items-center gap-1">
-        {/* <Button
-          onClick={() => handleStep(1)}
-          classname="hover:bg-slate-200 p-[2px] rounded-full"
-        >
-          <FaCaretUp size={16} />
-        </Button> */}
         <Input
           ref={ref}
           id={id || picker}
           name={name || picker}
           className={cn(
-            "w-[45px] h-[30px] text-center font-[Montserrat] font-semibold text-sm tabular-nums bg-white focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
+            "w-[45px] h-[30px] text-center font-[Montserrat] font-semibold text-xs tabular-nums bg-white focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
             className
           )}
           value={value || calculatedValue}
@@ -126,12 +114,6 @@ const TimePickerInput = React.forwardRef<
           }}
           {...props}
         />
-        {/* <Button
-          onClick={() => handleStep(-1)}
-          classname="hover:bg-slate-200 p-[2px] rounded-full" 
-        >
-          <FaCaretDown size={16} />
-        </Button> */}
       </div>
     );
   }
