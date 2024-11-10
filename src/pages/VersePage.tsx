@@ -23,7 +23,7 @@ export default function VersePage() {
                 </div>
             )}
             {isLoading ? (
-                <div className="w-full h-screen flex items-center justify-center bg-black">
+                <div className="w-full h-screen flex items-center justify-center bg-slate-300">
                     <Loader />
                 </div>
             ) : (

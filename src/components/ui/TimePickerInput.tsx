@@ -8,9 +8,6 @@ import {
   getDateByType,
   setDateByType,
 } from "./time-picker-utils";
-import { FaCaretUp } from "react-icons/fa";
-import { FaCaretDown } from "react-icons/fa";
-import Button from "./Button";
 
 export interface TimePickerInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -94,11 +91,11 @@ const TimePickerInput = React.forwardRef<
       }
     };
 
-    const handleStep = (step: number) => {
-      const newValue = getArrowByType(calculatedValue, step, picker);
-      const tempDate = new Date(date);
-      setDate(setDateByType(tempDate, newValue, picker, period));
-    };
+    // const handleStep = (step: number) => {
+    //   const newValue = getArrowByType(calculatedValue, step, picker);
+    //   const tempDate = new Date(date);
+    //   setDate(setDateByType(tempDate, newValue, picker, period));
+    // };
 
     return (
       <div className="flex flex-col justify-between items-center gap-1">

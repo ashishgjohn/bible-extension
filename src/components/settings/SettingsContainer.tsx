@@ -4,18 +4,11 @@ import Button from "../ui/Button";
 import star from './../../assets/imgs/StarBlack.png';
 
 export default function SettingsContainer() {
-    // const [step, setStep] = useState<number>(1);
-
-    // function handleStepClick(s: number) {
-    //     setStep(s);
-    // }
-
     return (
         <div className="w-full">
             <img src={settings} title="setings bg" className="w-full h-screen" />
-            {/* <TimeInput index={step} /> */}
             <div className="absolute w-full bottom-0 p-2">
-                <div className="w-full p-1 flex flex-col justify-center items-center gap-4 bg-white/0 rounded-[10px] border border-white/70 backdrop-blur-[50px]">
+                <div className="w-full p-1 pt-6 flex flex-col justify-center items-center gap-4 bg-white/0 rounded-[10px] border border-white/70 backdrop-blur-[50px]">
                     <p className="text-center text-white text-base font-normal font-['Medino'] uppercase">timers</p>
 
                     <div className="w-full p-2 flex flex-col justify-center items-center gap-2">

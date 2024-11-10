@@ -1,5 +1,5 @@
 import Button from './Button';
-import close from "./../../assets/imgs/Cross.png";
+import { IoClose } from "react-icons/io5";
 
 type CloseButtonPropsType = {
     className?: string
@@ -16,9 +16,9 @@ export default function CloseButton({ className }: CloseButtonPropsType) {
     return (
         <Button
             onClick={handleClose}
-            classname={`closeBtn cursor-pointer z-50 p-2 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] ${className}`}
+            classname={`p-[6px] closeBtn cursor-pointer z-50 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] ${className}`}
         >
-            <img src={close} className='w-[17.50px] h-[16.16px]' title='close icon' />
+            <IoClose size={24} color='#fff' />
         </Button>
     );
 }

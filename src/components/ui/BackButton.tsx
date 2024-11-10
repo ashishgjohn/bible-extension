@@ -8,9 +8,9 @@ export default function BackButton() {
     return (
         <Button
             onClick={() => navigate(-1)}
-            classname="p-2 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] z-10"
+            classname="p-[8px] bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] z-10"
         >
-            <img src={back} title="settings logo" className="w-[17.50px] h-[16.16px]" />
+            <img src={back} title="settings logo" className="w-[20px] h-[20px]" />
         </Button>
     )
 }
