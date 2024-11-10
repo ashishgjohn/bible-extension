@@ -9,7 +9,7 @@ export default function SettingsContainer() {
             <img src={settings} title="setings bg" className="w-full h-screen" />
             <div className="absolute w-full bottom-0 p-2">
                 <div className="w-full p-1 pt-6 flex flex-col justify-center items-center gap-4 bg-white/0 rounded-[10px] border border-white/70 backdrop-blur-[50px]">
-                    <p className="text-center text-white text-base font-normal font-['Medino'] uppercase">timers</p>
+                    <p className="text-center text-white text-base font-normal uppercase">timers</p>
 
                     <div className="w-full p-2 flex flex-col justify-center items-center gap-2">
                         <TimeInput index={1} />
@@ -25,7 +25,7 @@ export default function SettingsContainer() {
                     >
                         <div className="w-full flex justify-center items-center gap-2">
                             <img src={star} alt="star" className="w-[13px] h-[17px]" />
-                            <p className="text-center text-black text-lg font-medium font-['Medino'] ">Save!</p>
+                            <p className="text-center text-black text-sm font-semibold">Save!</p>
                         </div>
                     </Button>
                 </div>

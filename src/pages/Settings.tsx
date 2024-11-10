@@ -7,7 +7,7 @@ export default function Settings() {
         <div className="w-[400px] h-screen m-auto bg-white relative">
             <div className="absolute w-full p-6 flex justify-between items-center">
                 <BackButton />
-                <p className="text-center text-white text-xl font-normal font-['Medino']">Settings</p>
+                <p className="text-center text-white text-xl font-normal">Settings</p>
                 <CloseButton />
             </div>
             <SettingsContainer />

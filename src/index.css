@@ -2,11 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-    font-family: "Poppins", sans-serif;
+
+@font-face {
+    font-family: "MedinoRegular";
+    src: local("MedinoRegular"),
+        url("./fonts/medino-regular.ttf") format("truetype");
+    font-weight: normal;
 }
 
-html, body {
+@font-face {
+    font-family: "Montserrat";
+    src: local("Montserrat"),
+        url("./fonts/Montserrat-Regular.woff") format("woff");
+    font-weight: normal;
+}
+
+* {
+    font-family: "MedinoRegular","Poppins", sans-serif;
+}
+
+html,
+body {
     height: 100%;
 }
 
@@ -20,6 +36,7 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
     transition: 0.1s ease-in-out all;
 }
+
 input[type="range"]::-webkit-slider-thumb:hover {
     width: 18px;
     height: 18px;
@@ -43,7 +60,7 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 @layer base {
-  :root {
+    :root {
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
         --card: 0 0% 100%;
@@ -70,7 +87,8 @@ input[type="range"]::-moz-range-thumb:hover {
         --chart-5: 27 87% 67%;
         --radius: 0.5rem;
     }
-  .dark {
+
+    .dark {
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
         --card: 240 10% 3.9%;
@@ -99,10 +117,11 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 @layer base {
-  * {
-    @apply border-border;
+    * {
+        @apply border-border;
     }
-  body {
-    @apply bg-background text-foreground;
+
+    body {
+        @apply bg-background text-foreground;
     }
 }

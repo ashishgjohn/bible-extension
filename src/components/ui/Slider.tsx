@@ -37,8 +37,8 @@ export default function Slider({ value, min, max, step, onChange }: SliderPropsT
                 }}
             />
             <div className="flex flex-row justify-between items-center">
-                <p className="text-center text-xs font-normal font-['Medino'] leading-3 tracking-wide">Terrible</p>
-                <p className="text-center text-xs font-normal font-['Medino'] leading-3 tracking-wide">Excellent</p>
+                <p className="text-center text-xs font-normal leading-3 tracking-wide">Terrible</p>
+                <p className="text-center text-xs font-normal leading-3 tracking-wide">Excellent</p>
             </div>
         </div>
     )

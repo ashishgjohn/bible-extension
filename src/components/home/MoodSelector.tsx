@@ -27,7 +27,7 @@ export default function MoodSelector({ value, onChange }: MoodSelectorPropsType)
         <div className="w-full p-1 absolute bottom-0">
             <div className="h-[400px] p-1 flex flex-col gap-2 justify-between items-start bg-white/0 rounded-[10px] border border-white/70 backdrop-blur-[50px]">
                 <div className="pt-6 w-full flex flex-col justify-center items-center gap-1">
-                    <p className="text-xl font-normal font-['Medino']">How are you feeling?</p>
+                    <p className="text-xl font-normal">How are you feeling?</p>
                     <p className="text-center text-xs font-normal font-['Montserrat']">Drag the slider to set your mood</p>
                 </div>
 

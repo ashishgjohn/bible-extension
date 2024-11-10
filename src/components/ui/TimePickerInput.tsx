@@ -110,7 +110,7 @@ const TimePickerInput = React.forwardRef<
           id={id || picker}
           name={name || picker}
           className={cn(
-            "w-[40px] h-[30px] text-center font-mono text-sm tabular-nums bg-white focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
+            "w-[45px] h-[30px] text-center font-[Montserrat] font-semibold text-sm tabular-nums bg-white focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
             className
           )}
           value={value || calculatedValue}

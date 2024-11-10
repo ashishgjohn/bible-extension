@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TimePickerInput } from "./TimePickerInput";
 import { Period } from "./time-picker-utils";
-import PeriodSelect from "./PeriodSelect";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 interface TimePickerDemoProps {
   date: Date;
@@ -44,12 +44,12 @@ export function TimePicker12Hour({ date, setDate }: TimePickerDemoProps) {
         />
       </div>
       <div className="grid gap-1 text-center">
-        <PeriodSelect
-          value={period}
-          onChange={(value) => setPeriod(value as Period)}
-          date={date}
-          setDate={setDate}
-        />
+        <Tabs defaultValue="account" className="w-[4px] p-0">
+          <TabsList className="p-0 h-[30px]">
+            <TabsTrigger value="AM" defaultChecked onClick={() => setPeriod("AM")} className="font-[Montserrat] font-semibold">AM</TabsTrigger>
+            <TabsTrigger value="PM" onClick={() => setPeriod("PM")} className="font-[Montserrat] font-semibold">PM</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
     </div>
   );
