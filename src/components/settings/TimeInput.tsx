@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Button from "../ui/Button";
-import toast from "react-hot-toast";
 import { TimePicker12Hour } from "../ui/TimePickerInput12Hour";
 import Loader from "../ui/Loader";
+import timer from './../../assets/imgs/Timer.png';
+import { Switch } from "@/components/ui/switch";
 
 type TimeInputPropsType = {
     index: number
@@ -11,41 +11,40 @@ type TimeInputPropsType = {
 export default function TimeInput({ index }: TimeInputPropsType) {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [time, setTime] = useState<Date>(new Date('Wed Sep 25 2024 00:00:00'));
-    const formattedDate: string = `${String(time.getHours()).padStart(2, '0')}:${String(time.getMinutes()).padStart(2, '0')}`;
+    // const formattedDate: string = `${String(time.getHours()).padStart(2, '0')}:${String(time.getMinutes()).padStart(2, '0')}`;
 
     useEffect(() => {
         setIsLoading(true);
-        const timeName = `time${index}`;
-        chrome.storage.local.get(timeName, (result) => {
-            const time = result[timeName];
-            if (time) setTime(new Date(`Wed Sep 25 2024 ${time}:00`));
+        // const timeName = `time${index}`;
+        // chrome.storage.local.get(timeName, (result) => {
+        //     const time = result[timeName];
+        //     if (time) setTime(new Date(`Wed Sep 25 2024 ${time}:00`));
 
-            setIsLoading(false);
-        });
+        //     setIsLoading(false);
+        // });
+        setIsLoading(false);
     }, [index]);
 
-    function handleClick() {
-        chrome.storage.local.set({ [`time${index}`]: formattedDate });
-        chrome.storage.local.set({ [`openedForTime${index}`]: false });
-        toast.success("Saved!")
-    }
+    // function handleClick() {
+    //     chrome.storage.local.set({ [`time${index}`]: formattedDate });
+    //     chrome.storage.local.set({ [`openedForTime${index}`]: false });
+    //     toast.success("Saved!")
+    // }
 
     return (
-        <div className="w-full h-[500px] flex flex-col justify-center items-center gap-4">
+        <div className="w-full p-3 flex flex-col justify-center items-start gap-4 bg-white/10 rounded-[10px] border border-white/30 backdrop-blur-[50px]">
+            <div className="flex justify-start items-center gap-2">
+                <img src={timer} alt="timer" className="w-[19px] h-[19px]" />
+                <p className="text-white text-[13px] font-medium font-['Montserrat'] uppercase">timeslot {index}</p>
+            </div>
             <div className="w-full flex flex-col justify-between items-center">
                 {isLoading ? (
                     <Loader />
                 ) : (
-                    <>
+                    <div className="w-full flex justify-between items-center ">
                         <TimePicker12Hour date={time} setDate={(t: Date) => setTime(t)} />
-                        <p className="mt-12 font-medium text-xl uppercase tracking-wider text-wrap ">Set timers for your Selahvie</p>
-                        <Button
-                            onClick={handleClick}
-                            classname="mt-20 bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 w-full p-3 rounded-xl self-center justify-self-end "
-                        >
-                            <p className="text-base font-semibold text-white">Save!</p>
-                        </Button>
-                    </>
+                        <Switch />
+                    </div>
                 )}
             </div>
         </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MoodSelector from "../components/home/MoodSelector";
-import bgImage from './../assets/imgs/homeBg.webp';
+import bgImage from './../assets/imgs/HomeBg.webp';
 import Button from "../components/ui/Button";
 import Logo from "../components/ui/Logo";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +27,7 @@ export default function Home() {
                 <img src={settings} title="settings logo" className="w-[17.50px] h-[16.16px]" />
             </Button>
 
-            <CloseButton className="absolute top-6 right-6 p-2 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] z-10" />
+            <CloseButton className="absolute top-6 right-6" />
 
             <img src={bgImage} alt="background" className="w-[400px] h-screen object-cover" />
             <MoodSelector value={mood} onChange={setMood} />

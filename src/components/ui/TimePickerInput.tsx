@@ -102,18 +102,18 @@ const TimePickerInput = React.forwardRef<
 
     return (
       <div className="flex flex-col justify-between items-center gap-1">
-        <Button
+        {/* <Button
           onClick={() => handleStep(1)}
           classname="hover:bg-slate-200 p-[2px] rounded-full"
         >
           <FaCaretUp size={16} />
-        </Button>
+        </Button> */}
         <Input
           ref={ref}
           id={id || picker}
           name={name || picker}
           className={cn(
-            "w-[48px] text-center font-mono text-base tabular-nums focus:bg-accent focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
+            "w-[40px] h-[30px] text-center font-mono text-sm tabular-nums bg-white focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none",
             className
           )}
           value={value || calculatedValue}
@@ -129,12 +129,12 @@ const TimePickerInput = React.forwardRef<
           }}
           {...props}
         />
-        <Button
+        {/* <Button
           onClick={() => handleStep(-1)}
           classname="hover:bg-slate-200 p-[2px] rounded-full" 
         >
           <FaCaretDown size={16} />
-        </Button>
+        </Button> */}
       </div>
     );
   }

@@ -28,7 +28,7 @@ export default function PeriodSelect({ value, onChange, setDate, date }: PeriodS
     return (
         <div>
             <Select value={value} onValueChange={handleChange}>
-                <SelectTrigger className="w-[75px]">
+                <SelectTrigger className="w-[70px] h-[30px] bg-white">
                     <SelectValue placeholder="AM" />
                 </SelectTrigger>
                 <SelectContent>

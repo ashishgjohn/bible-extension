@@ -32,7 +32,7 @@ export function TimePicker12Hour({ date, setDate }: TimePickerDemoProps) {
           onRightFocus={() => minuteRef.current?.focus()}
         />
       </div>
-      <p className="font-semibold text-xl">:</p>
+      <p className="font-semibold text-xl text-white">:</p>
       <div className="grid gap-1 text-center">
         <TimePickerInput
           picker="minutes"

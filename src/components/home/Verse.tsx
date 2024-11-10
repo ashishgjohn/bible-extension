@@ -3,11 +3,7 @@ import { FaFacebook } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { getVerseImage } from "../../services/getVersesApi";
 import Loader from "../ui/Loader";
-import back from './../../assets/imgs/ArrowLeft.png'
 import { useState } from "react";
-import CloseButton from "../ui/CloseButton";
-import Button from "../ui/Button";
-import { useNavigate } from "react-router-dom";
 import Logo from "../ui/Logo";
 import logo from "./../../assets/imgs/SelahvieLogoWhite.webp";
 
@@ -22,7 +18,6 @@ type VersePropsType = {
 const facebookCaption = "My verse for today’s journey | SelahVie https://selahvie-backend.onrender.com/";
 
 export default function Verse({ reference, text, image, onClick }: VersePropsType) {
-    const navigate = useNavigate();
     // const postCaption = `${text} - ${reference}`;
     const [url, setUrl] = useState<string | null>(null);
     const { mutate, isPending, data } = useMutation({
@@ -47,19 +42,10 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
 
     return (
         <div className="w-full h-full relative overflow-hidden">
-            <Button
-                onClick={() => navigate(-1)}
-                classname="absolute top-6 left-6 p-2 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] z-10"
-            >
-                <img src={back} title="settings logo" className="w-[17.50px] h-[16.16px]" />
-            </Button>
-
-            <CloseButton className="absolute top-6 right-6 p-2 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] z-10" />
-
             <img src={image} alt="" className='object-cover h-full' loading="eager" onClick={onClick} />
 
             <div className='absolute w-full h-min-[35%] bottom-0 flex flex-col gap-2 p-2 justify-center items-center'>
-                <div className="w-full p-6 relative flex flex-col gap-8 justify-start items-start bg-white/50 rounded-[10px] border border-white/50 backdrop-blur-[30px]">
+                <div onClick={onClick} className="w-full p-6 relative flex flex-col gap-8 justify-start items-start bg-white/50 rounded-[10px] border border-white/50 backdrop-blur-[30px]">
                     <p className="text-center text-black/80 text-xs font-normal font-['Montserrat'] leading-3 tracking-wide">{reference}</p>
                     <p className="text-center text-black text-lg font-normal font-['Montserrat'] leading-tight">{text}</p>
 

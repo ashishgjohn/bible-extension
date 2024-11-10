@@ -16,7 +16,7 @@ export default function CloseButton({ className }: CloseButtonPropsType) {
     return (
         <Button
             onClick={handleClose}
-            classname={`closeBtn cursor-pointer z-50 ${className}`}
+            classname={`closeBtn cursor-pointer z-50 p-2 bg-white/10 backdrop-blur-[50px] border-white/70 border rounded-[10px] ${className}`}
         >
             <img src={close} className='w-[17.50px] h-[16.16px]' title='close icon' />
         </Button>
