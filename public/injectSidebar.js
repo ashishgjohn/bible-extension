@@ -18,7 +18,8 @@ function createSidebar() {
         sidebar.style.height = '100%';
         sidebar.style.border = 'none';
         sidebar.style.zIndex = '9999999999';
-        sidebar.style.boxShadow = '-2px 0px 5px rgba(0, 0, 0, 0.3)';
+        sidebar.style.backgroundColor = 'transparent';
+        sidebar.style.borderRadius = '10px';
         document.body.appendChild(sidebar);
 
         applyLayoutFix(400);

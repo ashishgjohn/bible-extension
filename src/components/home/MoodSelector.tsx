@@ -42,7 +42,7 @@ export default function MoodSelector({ value, onChange }: MoodSelectorPropsType)
                     {value >= 0 && value <= 5 && (
                         <img src={faceYellow} title="mood image" className="w-64 absolute bottom-2" />
                     )}
-                    {value >= 5 && value <= 10 && (
+                    {value >= 6 && value <= 10 && (
                         <img src={faceGreen} title="mood image" className="w-64 absolute bottom-2" />
                     )}
 
