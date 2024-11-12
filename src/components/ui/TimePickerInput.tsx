@@ -89,6 +89,12 @@ const TimePickerInput = React.forwardRef<
         const tempDate = new Date(date);
         setDate(setDateByType(tempDate, newValue, picker, period));
       }
+      if (e.key === "Backspace") {
+        const newValue = calculatedValue.length === 2 ? "00" : "0" + calculatedValue[0];
+        const tempDate = new Date(date);
+        setDate(setDateByType(tempDate, newValue, picker, period));
+        setFlag(false);
+      }
     };
 
     return (

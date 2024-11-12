@@ -22,9 +22,9 @@ export default function SettingsContainer() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const [times, setTimes] = useState<Times>({
-        time1: { time: "00:00", opened: false, isEnabled: true },
-        time2: { time: "00:00", opened: false, isEnabled: true },
-        time3: { time: "00:00", opened: false, isEnabled: true },
+        time1: { time: "00:00", opened: false, isEnabled: false },
+        time2: { time: "00:00", opened: false, isEnabled: false },
+        time3: { time: "00:00", opened: false, isEnabled: false },
     });
 
     useEffect(() => {
@@ -39,7 +39,6 @@ export default function SettingsContainer() {
 
             setIsLoading(false);
         });
-
     }, []);
 
     function handleTimeChange(index: number, newTime: string) {
@@ -97,6 +96,7 @@ export default function SettingsContainer() {
                                 isEnabled={times.time2.isEnabled}
                                 onTimeChange={(time) => handleTimeChange(2, time)}
                                 onToggleChange={(enable) => handleToggleChange(2, enable)}
+                                disabled={!times?.time1.isEnabled && !times.time2.isEnabled}
                             />
                             <TimeInput
                                 index={3}
@@ -104,6 +104,7 @@ export default function SettingsContainer() {
                                 isEnabled={times.time3.isEnabled}
                                 onTimeChange={(time) => handleTimeChange(3, time)}
                                 onToggleChange={(enable) => handleToggleChange(3, enable)}
+                                disabled={(!times?.time1.isEnabled || !times?.time2.isEnabled) && !times.time3.isEnabled}
                             />
                         </>)}
                     </div>

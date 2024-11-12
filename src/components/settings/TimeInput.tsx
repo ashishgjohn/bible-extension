@@ -9,9 +9,10 @@ type TimeInputPropsType = {
     isEnabled: boolean;
     onTimeChange: (time: string) => void;
     onToggleChange: (isEnabled: boolean) => void;
+    disabled?: boolean;
 }
 
-export default function TimeInput({ index, time, isEnabled, onTimeChange, onToggleChange }: TimeInputPropsType) {
+export default function TimeInput({ index, time, isEnabled, disabled, onTimeChange, onToggleChange }: TimeInputPropsType) {
     const [currentTime, setCurrentTime] = useState<Date>(new Date(`Wed Sep 25 2024 ${time}:00`));
     const isEnabledClass = isEnabled ? 'bg-[#ffffff80]' : 'opacity-50 bg-white/10';
 
@@ -31,6 +32,7 @@ export default function TimeInput({ index, time, isEnabled, onTimeChange, onTogg
                 <div className="w-full flex justify-between items-center ">
                     <TimePicker12Hour date={currentTime} setDate={handleTimeChange} />
                     <Switch
+                        disabled={disabled ?? false}
                         checked={isEnabled}
                         onCheckedChange={(checked) => onToggleChange(checked)}
                     />
