@@ -13,7 +13,7 @@ type TimeInputPropsType = {
 }
 
 export default function TimeInput({ index, time, isEnabled, disabled, onTimeChange, onToggleChange }: TimeInputPropsType) {
-    const [currentTime, setCurrentTime] = useState<Date>(new Date(`Wed Sep 25 2024 ${time}:00`));
+    const [currentTime, setCurrentTime] = useState<Date>(new Date(`Wed Sep 25 2024 ${time}:00 GMT+0530 (India Standard Time)`));
     const isEnabledClass = isEnabled ? 'bg-[#ffffff80]' : 'opacity-50 bg-white/10';
 
     function handleTimeChange(date: Date) {

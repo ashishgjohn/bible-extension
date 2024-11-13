@@ -31,9 +31,9 @@ export default function SettingsContainer() {
         setIsLoading(true);
         chrome.storage.local.get(['time1', 'time2', 'time3', 'openedForTime1', 'openedForTime2', 'openedForTime3', 'enabled1', 'enabled2', 'enabled3'], (result) => {
             setTimes({
-                time1: { time: result['time1'], opened: result['openedForTime1'], isEnabled: result['enabled1'] ?? false },
-                time2: { time: result['time2'], opened: result['openedForTime2'], isEnabled: result['enabled2'] ?? false },
-                time3: { time: result['time3'], opened: result['openedForTime3'], isEnabled: result['enabled3'] ?? false }
+                time1: { time: result['time1'] ?? '00:00', opened: result['openedForTime1'] ?? false, isEnabled: result['enabled1'] ?? false },
+                time2: { time: result['time2'] ?? '00:00', opened: result['openedForTime2'] ?? false, isEnabled: result['enabled2'] ?? false },
+                time3: { time: result['time3'] ?? '00:00', opened: result['openedForTime3'] ?? false, isEnabled: result['enabled3'] ?? false }
             });
 
             setIsLoading(false);
@@ -41,8 +41,6 @@ export default function SettingsContainer() {
     }, []);
 
     function handleTimeChange(index: number, newTime: string) {
-        console.log(newTime);
-
         setTimes((prevTimes) => ({
             ...prevTimes,
             [`time${index}`]: { ...prevTimes[`time${index}` as keyof Times], time: newTime }
