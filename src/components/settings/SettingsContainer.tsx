@@ -30,11 +30,10 @@ export default function SettingsContainer() {
     useEffect(() => {
         setIsLoading(true);
         chrome.storage.local.get(['time1', 'time2', 'time3', 'openedForTime1', 'openedForTime2', 'openedForTime3', 'enabled1', 'enabled2', 'enabled3'], (result) => {
-
             setTimes({
-                time1: { time: result['time1'], opened: result['openedForTime1'], isEnabled: result['enabled1'] ?? true },
-                time2: { time: result['time2'], opened: result['openedForTime2'], isEnabled: result['enabled2'] ?? true },
-                time3: { time: result['time3'], opened: result['openedForTime3'], isEnabled: result['enabled3'] ?? true }
+                time1: { time: result['time1'], opened: result['openedForTime1'], isEnabled: result['enabled1'] ?? false },
+                time2: { time: result['time2'], opened: result['openedForTime2'], isEnabled: result['enabled2'] ?? false },
+                time3: { time: result['time3'], opened: result['openedForTime3'], isEnabled: result['enabled3'] ?? false }
             });
 
             setIsLoading(false);
@@ -42,6 +41,8 @@ export default function SettingsContainer() {
     }, []);
 
     function handleTimeChange(index: number, newTime: string) {
+        console.log(newTime);
+
         setTimes((prevTimes) => ({
             ...prevTimes,
             [`time${index}`]: { ...prevTimes[`time${index}` as keyof Times], time: newTime }
@@ -89,6 +90,7 @@ export default function SettingsContainer() {
                                 isEnabled={times.time1.isEnabled}
                                 onTimeChange={(time) => handleTimeChange(1, time)}
                                 onToggleChange={(enable) => handleToggleChange(1, enable)}
+                                disabled={times?.time2.isEnabled}
                             />
                             <TimeInput
                                 index={2}
@@ -96,7 +98,7 @@ export default function SettingsContainer() {
                                 isEnabled={times.time2.isEnabled}
                                 onTimeChange={(time) => handleTimeChange(2, time)}
                                 onToggleChange={(enable) => handleToggleChange(2, enable)}
-                                disabled={!times?.time1.isEnabled && !times.time2.isEnabled}
+                                disabled={!times?.time1.isEnabled || times?.time3.isEnabled}
                             />
                             <TimeInput
                                 index={3}

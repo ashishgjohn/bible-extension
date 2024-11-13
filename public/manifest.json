@@ -3,6 +3,9 @@
     "name": "SelahVie",
     "description": "Chrome Extension for The Holy Bible",
     "version": "1.0",
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self';"
+    },
     "action": {
         "default_icon": "SelahVie-logo.png"
     },
