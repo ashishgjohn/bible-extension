@@ -49,7 +49,7 @@ export default function HourInput({
             setDate(setDateByType(tempDate, "12", picker, period));
         }
         
-        if (numberValue < 10) {
+        if (value.length === 1 && numberValue < 10) {
             setValue(`0${value}`);
             const tempDate = new Date(date);
             setDate(setDateByType(tempDate, `0${value}`, picker, period));
