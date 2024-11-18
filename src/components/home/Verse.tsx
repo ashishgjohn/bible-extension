@@ -18,11 +18,11 @@ type VersePropsType = {
 const facebookCaption = "My verse for today’s journey | SelahVie https://selahvie-backend.onrender.com/";
 
 export default function Verse({ reference, text, image, onClick }: VersePropsType) {
-    // const postCaption = `${text} - ${reference}`;
     const [url, setUrl] = useState<string | null>(null);
+    const strings = image.split("/");
     const { mutate, isPending, data } = useMutation({
         mutationKey: ['verseImage', text],
-        mutationFn: () => getVerseImage(`${text} - ${reference}`),
+        mutationFn: () => getVerseImage(`${text} - ${reference}`, strings[(strings.length - 1)]),
         onSuccess: (data) => {
             window.open(`${url}${data.imageUrl}`, '_blank');
         },
@@ -33,6 +33,8 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
 
     async function handleClick(url: string) {
         if (data) {
+            console.log(data.imageUrl);
+
             window.open(`${url}${data.imageUrl}`, '_blank');
         } else {
             setUrl(url);
@@ -55,7 +57,7 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
                     />
                 </div>
                 <ShareButton
-                    onClick={() => handleClick(`https://www.facebook.com/dialog/share?app_id=466015839919233&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=`)}
+                    onClick={() => handleClick(`https://www.facebook.com/dialog/share?app_id=1047194497182929&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=`)}
                     disabled={isPending}
                 >
                     {isPending ? (
@@ -71,29 +73,3 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
         </div>
     )
 }
-
-// https://selahvie-backend.onrender.com/imgs/output-1728929148519.jpg
-// https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=${encodeURIComponent('https://selahvie-backend.onrender.com/')}
-
-// const shareToTwitter = () => {
-//     const twitterShareUrl = https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&hashtags=${encodeURIComponent(hashtags.join(','))};
-
-//     // Open the Twitter share URL in a new window
-//     window.open(twitterShareUrl, '_blank', 'noopener,noreferrer');
-//   };
-
-{/* <ShareButton
-                                onClick={() => redirect(`https://twitter.com/intent/tweet?text=${encodeURIComponent(postCaption)}&url=https://selahvie-backend.onrender.com/imgs/output-1728929148519.jpg`)}
-                            >
-                                <FaSquareXTwitter size={36} className="hover:text-black " />
-                            </ShareButton>
-                            <ShareButton
-                                onClick={() => redirect(`https://api.whatsapp.com//send?text=${encodeURIComponent(postCaption)}&url=https://x.com`)}
-                            >
-                                <FaWhatsapp size={36} className="hover:text-green-400 " />
-                            </ShareButton>
-                            <ShareButton
-                                onClick={() => redirect(`https://snapchat.com/scan?attachmentUrl=${encodeURIComponent(postCaption)}`)}
-                            >
-                                <FaSnapchatGhost size={36} className="hover:text-yellow-300" />
-                            </ShareButton> */}

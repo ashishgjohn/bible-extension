@@ -80,7 +80,7 @@ const TimePickerInput = React.forwardRef<HTMLInputElement, TimePickerInputProps>
 
         // Handle Backspace key
         if (e.key === "Backspace") {
-          const newInput = "0" + inputValue[0];
+          const newInput = inputValue[0];
           setInputValue(newInput);
           inputElement.value = newInput; // Directly update DOM
           const tempDate = new Date(date);
