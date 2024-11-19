@@ -66,8 +66,8 @@ export function TimePicker12Hour({ date, setDate, disabled }: TimePickerDemoProp
       <div className="grid gap-1 text-center">
         <Tabs defaultValue={period} className="w-[4px] p-0 rounded-[5px]">
           <TabsList className="p-0 h-[30px] rounded-[5px]">
-            <TabsTrigger disabled={disabled} value="AM" onClick={() => handlePeriodChange("AM")} className="font-[Montserrat] rounded-[5px] text-xs font-semibold">AM</TabsTrigger>
-            <TabsTrigger disabled={disabled} value="PM" onClick={() => handlePeriodChange("PM")} className="font-[Montserrat] rounded-[5px] text-xs font-semibold">PM</TabsTrigger>
+            <TabsTrigger disabled={disabled} value="AM" onClick={() => handlePeriodChange("AM")} className="font-[Montserrat] rounded-[5px] text-xs font-semibold disabled:cursor-not-allowed">AM</TabsTrigger>
+            <TabsTrigger disabled={disabled} value="PM" onClick={() => handlePeriodChange("PM")} className="font-[Montserrat] rounded-[5px] text-xs font-semibold disabled:cursor-not-allowed">PM</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>

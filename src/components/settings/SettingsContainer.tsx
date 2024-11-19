@@ -67,7 +67,7 @@ export default function SettingsContainer() {
             enabled3: times?.time3.isEnabled,
         };
         chrome.storage.local.set(updatedTimes, () => {
-            toast.success("Saved!");
+            toast.success("Saved!", {id: "saved"});
         });
     }
 

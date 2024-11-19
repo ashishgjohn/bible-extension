@@ -30,7 +30,7 @@ export default function TimeInput({ index, time, isEnabled, disabled, onTimeChan
             </div>
             <div className="w-full flex flex-col justify-between items-center">
                 <div className="w-full flex justify-between items-center ">
-                    <TimePicker12Hour disabled={disabled || !isEnabled} date={currentTime} setDate={handleTimeChange} />
+                    <TimePicker12Hour disabled={!isEnabled} date={currentTime} setDate={handleTimeChange} />
                     <Switch
                         disabled={disabled ?? false}
                         checked={isEnabled}

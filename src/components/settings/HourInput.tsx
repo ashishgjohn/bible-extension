@@ -66,7 +66,7 @@ export default function HourInput({
             onChange={handleInputChange}
             onBlur={handleBlur}
             maxLength={2}
-            className="w-[45px] h-[30px] rounded-[5px] text-center font-[Montserrat] font-semibold text-xs tabular-nums bg-white focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none disabled:opacity-50"
+            className="w-[45px] h-[30px] rounded-[5px] text-center font-[Montserrat] font-semibold text-xs tabular-nums bg-white focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none disabled:opacity-50 disabled:cursor-not-allowed"
             title="HH"
             disabled={disabled}
         />
