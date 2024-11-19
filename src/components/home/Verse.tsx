@@ -44,7 +44,7 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
 
     return (
         <div className="w-full h-full relative overflow-hidden">
-            <img src={image} alt="" className='object-cover h-full' loading="eager" onClick={onClick} />
+            <img src={image} alt="" className='object-cover h-full' loading="eager"/>
 
             <div className='absolute w-full h-min-[35%] bottom-0 flex flex-col gap-2 p-2 justify-center items-center'>
                 <div onClick={onClick} className="w-full p-6 relative flex flex-col gap-8 justify-start items-start bg-white/50 rounded-[10px] border border-white/50 backdrop-blur-[30px]">
