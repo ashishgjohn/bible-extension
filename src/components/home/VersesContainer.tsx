@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import VerseType from "../../constants/VerseType";
 import Verse from "./Verse";
 import ErrorPlaceholder from '../ui/ErrorPlaceholder';

@@ -59,13 +59,14 @@ export default function SettingsContainer() {
             time1: times?.time1.time,
             time2: times?.time2.time,
             time3: times?.time3.time,
-            openedForTime1: times?.time1.opened,
-            openedForTime2: times?.time2.opened,
-            openedForTime3: times?.time3.opened,
+            openedForTime1: false,
+            openedForTime2: false,
+            openedForTime3: false,
             enabled1: times?.time1.isEnabled,
             enabled2: times?.time2.isEnabled,
             enabled3: times?.time3.isEnabled,
         };
+
         chrome.storage.local.set(updatedTimes, () => {
             toast.success("Saved!", {id: "saved"});
         });
