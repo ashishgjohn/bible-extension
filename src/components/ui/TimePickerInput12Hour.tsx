@@ -1,8 +1,8 @@
 import * as React from "react";
-import { TimePickerInput } from "./TimePickerInput";
 import { Period } from "./time-picker-utils";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import HourInput from "../settings/HourInput";
+import MinuteInput from "../settings/MinuteInput";
 
 interface TimePickerDemoProps {
   date: Date;
@@ -16,9 +16,6 @@ export function TimePicker12Hour({ date, setDate, disabled }: TimePickerDemoProp
       return date?.getHours() > 12 ? "PM" : "AM"
     }
   );
-  
-  const minuteRef = React.useRef<HTMLInputElement>(null);
-  const hourRef = React.useRef<HTMLInputElement>(null);
 
   function handlePeriodChange(newPeriod: Period) {
     if (period !== newPeriod) {
@@ -51,15 +48,11 @@ export function TimePicker12Hour({ date, setDate, disabled }: TimePickerDemoProp
       </div>
       <p className="font-semibold text-xl text-white">:</p>
       <div className="grid gap-1 text-center">
-        <TimePickerInput
+        <MinuteInput
           picker="minutes"
-          id="minutes12"
           period={period}
           date={date}
           setDate={setDate}
-          ref={minuteRef}
-          onLeftFocus={() => hourRef.current?.focus()}
-          className="rounded-[5px]"
           disabled={disabled}
         />
       </div>

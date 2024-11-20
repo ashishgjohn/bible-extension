@@ -22,17 +22,17 @@ export default function HourInput({
         let inputValue = (e.target as HTMLInputElement)?.value;
 
         inputValue = inputValue.replace(/[^0-9]/g, "");
+        const numberValue = parseInt(inputValue, 10);
 
         if (inputValue.length === 1) {
-            if (parseInt(inputValue, 10) > 1 && parseInt(inputValue, 10) < 10) {
+            if (numberValue > 1 && numberValue < 10) {
                 setValue(inputValue);
-            } else if (parseInt(inputValue, 10) === 0) {
+            } else if (numberValue === 0) {
                 setValue("");
             } else {
                 setValue(inputValue);
             }
         } else if (inputValue.length === 2) {
-            const numberValue = parseInt(inputValue, 10);
             if (numberValue >= 1 && numberValue <= 12) {
                 setValue(inputValue);
             }
