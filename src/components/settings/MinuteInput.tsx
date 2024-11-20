@@ -1,5 +1,5 @@
 import { KeyboardEvent, useState } from 'react';
-import { display12HourValue, Period, setDateByType, TimePickerType } from '../ui/time-picker-utils';
+import { Period, setDateByType, TimePickerType } from '../ui/time-picker-utils';
 
 type MinuteInputPropsType = {
     disabled?: boolean;
@@ -9,14 +9,26 @@ type MinuteInputPropsType = {
     period?: Period;
 }
 
+function formatMinutes(minutes: number) {
+    if (minutes) {
+        const min = String(minutes);
+        if (min.length === 1) {
+            return `0${min}`;
+        }
+        return min;
+    }
+
+    return "00";
+}
+
 function MinuteInput({
     disabled,
     picker,
     date = new Date(new Date().setHours(0, 0, 0, 0)),
     setDate,
     period
-}: MinuteInputPropsType) {
-    const [value, setValue] = useState<string>(display12HourValue(date.getMinutes()) ?? "00");
+}: MinuteInputPropsType) {    
+    const [value, setValue] = useState<string>(formatMinutes(date.getMinutes()));
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = (e.target as HTMLInputElement)?.value;
