@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 import { display12HourValue, Period, setDateByType, TimePickerType } from '../ui/time-picker-utils';
 
 type MinuteInputPropsType = {
@@ -42,7 +42,7 @@ function MinuteInput({
             const tempDate = new Date(date);
             setDate(setDateByType(tempDate, "00", picker, period));
         }
-        
+
         if (value.length === 1 && numberValue < 10) {
             setValue(`0${value}`);
             const tempDate = new Date(date);
@@ -53,11 +53,30 @@ function MinuteInput({
         }
     }
 
+    function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+        if (["ArrowUp", "ArrowDown"].includes(e.key)) {
+            const numberValue = parseInt(value, 10);
+            if (numberValue == 0) {
+                if (e.key === "ArrowUp") {
+                    setValue(v => String(Number(v) + 1));
+                }
+            } else if (numberValue == 59) {
+                if (e.key === "ArrowDown") {
+                    setValue(v => String(Number(v) - 1));
+                }
+            } else {
+                const step = e.key === "ArrowUp" ? 1 : -1;
+                setValue(v => String(Number(v) + step));
+            }
+        }
+    }
+
     return (
         <input
             type="text"
             value={value}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             onBlur={handleBlur}
             maxLength={2}
             className="w-[45px] h-[30px] rounded-[5px] text-center font-[Montserrat] font-semibold text-xs tabular-nums bg-white focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none disabled:opacity-50 disabled:cursor-not-allowed"

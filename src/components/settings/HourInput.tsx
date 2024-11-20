@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { display12HourValue, Period, setDateByType, TimePickerType } from "../ui/time-picker-utils";
 
 type HourInputPropsType = {
@@ -59,12 +59,31 @@ export default function HourInput({
         }
     };
 
+    function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+        if (["ArrowUp", "ArrowDown"].includes(e.key)) {
+            const numberValue = parseInt(value, 10);
+            if (numberValue == 1) {
+                if (e.key === "ArrowUp") {
+                    setValue(v => String(Number(v) + 1));
+                }
+            } else if (numberValue == 12) {
+                if (e.key === "ArrowDown") {
+                    setValue(v => String(Number(v) - 1));
+                }
+            } else {
+                const step = e.key === "ArrowUp" ? 1 : -1;
+                setValue(v => String(Number(v) + step));
+            }
+        }
+    }
+
     return (
         <input
             type="text"
             value={value}
             onChange={handleInputChange}
             onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
             maxLength={2}
             className="w-[45px] h-[30px] rounded-[5px] text-center font-[Montserrat] font-semibold text-xs tabular-nums bg-white focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none disabled:opacity-50 disabled:cursor-not-allowed"
             title="HH"
