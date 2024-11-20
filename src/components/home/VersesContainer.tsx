@@ -14,9 +14,13 @@ function generateRandomIndex(length: number) {
 }
 
 export default function VersesContainer({ verses, images }: VersesContainerPropsType) {
-    const image = images[generateRandomIndex(images.length)];
-    const [index, setIndex] = useState<number>(generateRandomIndex(verses.length));    
+    const [index, setIndex] = useState<number>(function () {
+        return generateRandomIndex(verses.length);
+    });
     const verse = verses[index];
+    const [image] = useState<ImageType>(function () {
+        return images[generateRandomIndex(images.length)];
+    });
 
     function handleClickOnVerse() {
         setIndex(generateRandomIndex(verses.length));
