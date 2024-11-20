@@ -3,10 +3,8 @@ import getVersesApi from "../services/getVersesApi";
 
 export default function useVerses(score: number | string) {
     const { data, isLoading, error, isSuccess } = useQuery({
-        queryKey: [],
-        queryFn: async () => getVersesApi(Number(score)),
-        staleTime: 0,
-        refetchOnMount: true,
+        queryKey: ["verses", score],
+        queryFn: async () => getVersesApi(Number(score))
     });
 
     return { data: data?.data, isLoading, error, isSuccess };

@@ -15,16 +15,12 @@ function generateRandomIndex(length: number) {
 
 export default function VersesContainer({ verses, images }: VersesContainerPropsType) {
     const image = images[generateRandomIndex(images.length)];
-    const [index, setIndex] = useState<number>(0);
+    const [index, setIndex] = useState<number>(generateRandomIndex(verses.length));    
     const verse = verses[index];
 
     function handleClickOnVerse() {
         setIndex(generateRandomIndex(verses.length));
     }
-
-    useEffect(() => {
-        setIndex(0);
-    }, [verses]);
 
     return (
         <div className="w-full h-screen flex justify-center items-center">
