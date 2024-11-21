@@ -7,9 +7,10 @@ type CloseButtonPropsType = {
 
 export default function CloseButton({ className }: CloseButtonPropsType) {
     function handleClose() {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
             const activeTab = tabs[0];
             chrome.tabs.sendMessage(activeTab.id ?? 0, { action: 'removeSidebar' });
+            await chrome.storage.local.set({ isSidebarOpen: false });
         });
     }
 

@@ -1,5 +1,17 @@
 let isSidebarOpen = false;
 
+chrome.storage.local.get(['isSidebarOpen'], (result) => {
+  if (result.isSidebarOpen != undefined) {
+    isSidebarOpen = result.isSidebarOpen;
+  }
+});
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (namespace === 'local' && changes.isSidebarOpen) {
+    isSidebarOpen = changes.isSidebarOpen.newValue;
+  }
+});
+
 chrome.runtime.onInstalled.addListener(() => {
   chrome.alarms.create('alarm', {
     delayInMinutes: 0,
@@ -21,18 +33,22 @@ function injectSidebar(forceReopen = false) {
         chrome.scripting.executeScript({
           target: { tabId: activeTab.id },
           files: ['injectSidebar.js']
-        }, () => {
+        }, async () => {
           chrome.tabs.sendMessage(activeTab.id, { action: 'createSidebar' });
           isSidebarOpen = true;
+          
+          await chrome.storage.local.set({ isSidebarOpen: true });
         });
       });
     } else {
       chrome.scripting.executeScript({
         target: { tabId: activeTab.id },
         files: ['injectSidebar.js']
-      }, () => {
+      }, async () => {
         chrome.tabs.sendMessage(activeTab.id, { action: isSidebarOpen ? 'removeSidebar' : 'createSidebar' });
         isSidebarOpen = !isSidebarOpen;
+
+        await chrome.storage.local.set({ isSidebarOpen });
       });
     }
   });
