@@ -1,9 +1,9 @@
 let isSidebarOpen = false;
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.alarms.create('hourlyAlarm', {
-    delayInMinutes: 0.15,
-    periodInMinutes: 1
+  chrome.alarms.create('alarm', {
+    delayInMinutes: 0,
+    periodInMinutes: 0.016
   });
 
   chrome.alarms.create('resetDailyFlags', {
@@ -50,7 +50,7 @@ function resetDailyFlags() {
 }
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
-  if (alarm.name === 'hourlyAlarm') {
+  if (alarm.name === 'alarm') {
     const { time1, time2, time3, openedForTime1, openedForTime2, openedForTime3, enabled1, enabled2, enabled3 } = await chrome.storage.local.get({
       time1: null,
       time2: null,
@@ -64,7 +64,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
     });
 
     const date = new Date(Date.now());
-    const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+    const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
 
     if (formattedTime === time1 && !openedForTime1 && enabled1) {
       injectSidebar(true);

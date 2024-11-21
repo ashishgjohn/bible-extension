@@ -22,18 +22,18 @@ export default function SettingsContainer() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const [times, setTimes] = useState<Times>({
-        time1: { time: "00:00", opened: false, isEnabled: false },
-        time2: { time: "00:00", opened: false, isEnabled: false },
-        time3: { time: "00:00", opened: false, isEnabled: false },
+        time1: { time: "00:00:00", opened: false, isEnabled: false },
+        time2: { time: "00:00:00", opened: false, isEnabled: false },
+        time3: { time: "00:00:00", opened: false, isEnabled: false },
     });
 
     useEffect(() => {
         setIsLoading(true);
         chrome.storage.local.get(['time1', 'time2', 'time3', 'openedForTime1', 'openedForTime2', 'openedForTime3', 'enabled1', 'enabled2', 'enabled3'], (result) => {
             setTimes({
-                time1: { time: result['time1'] ?? '00:00', opened: result['openedForTime1'] ?? false, isEnabled: result['enabled1'] ?? false },
-                time2: { time: result['time2'] ?? '00:00', opened: result['openedForTime2'] ?? false, isEnabled: result['enabled2'] ?? false },
-                time3: { time: result['time3'] ?? '00:00', opened: result['openedForTime3'] ?? false, isEnabled: result['enabled3'] ?? false }
+                time1: { time: result['time1'] ?? '00:00:00', opened: result['openedForTime1'] ?? false, isEnabled: result['enabled1'] ?? false },
+                time2: { time: result['time2'] ?? '00:00:00', opened: result['openedForTime2'] ?? false, isEnabled: result['enabled2'] ?? false },
+                time3: { time: result['time3'] ?? '00:00:00', opened: result['openedForTime3'] ?? false, isEnabled: result['enabled3'] ?? false }
             });
 
             setIsLoading(false);

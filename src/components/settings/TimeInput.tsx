@@ -13,12 +13,12 @@ type TimeInputPropsType = {
 }
 
 export default function TimeInput({ index, time, isEnabled, disabled, onTimeChange, onToggleChange }: TimeInputPropsType) {
-    const [currentTime, setCurrentTime] = useState<Date>(new Date(`Wed Sep 25 2024 ${time}:00 GMT+0530 (India Standard Time)`));
+    const [currentTime, setCurrentTime] = useState<Date>(new Date(`Wed Sep 25 2024 ${time} GMT+0530 (India Standard Time)`));
     const isEnabledClass = isEnabled ? 'bg-[#ffffff80]' : 'opacity-50 bg-white/10';  
 
     function handleTimeChange(date: Date) {
         setCurrentTime(date);
-        const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+        const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
         onTimeChange(formattedTime);
     }
 
