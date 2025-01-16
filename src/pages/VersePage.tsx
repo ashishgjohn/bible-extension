@@ -1,14 +1,20 @@
 import useVerses from "../functions/useVerses";
 import Loader from "../components/ui/Loader";
 import ErrorPlaceholder from "../components/ui/ErrorPlaceholder";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import VersesContainer from "../components/home/VersesContainer";
 import BackButton from "@/components/ui/BackButton";
 import CloseButton from "@/components/ui/CloseButton";
 
 export default function VersePage() {
     const { score } = useParams();
+	const location = useLocation();
+    const preloadedImage = location.state?.preloadedImage;
+	
     const { data, isLoading, error, isSuccess } = useVerses(score ?? 0);
+	
+	const images = preloadedImage ? [preloadedImage] : [];
+	
     console.error(error);
 
     return (
@@ -29,7 +35,7 @@ export default function VersePage() {
             ) : (
                 <>
                     {isSuccess && (
-                        <VersesContainer verses={data.verses} images={data.images} />
+                        <VersesContainer verses={data.verses} images={images} />
                     )}
                 </>
             )}

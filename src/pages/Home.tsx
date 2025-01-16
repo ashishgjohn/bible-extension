@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MoodSelector from "../components/home/MoodSelector";
 import bgImage from './../assets/imgs/HomeBg.webp';
 import Button from "../components/ui/Button";
@@ -7,10 +7,26 @@ import { useNavigate } from "react-router-dom";
 import CloseButton from "@/components/ui/CloseButton";
 import settings from './../assets/imgs/Settings.png';
 import logo from './../assets/imgs/SelahVieLogo.webp';
+import axiosInstance from "../services/axiosInstance";
 
 export default function Home() {
     const navigate = useNavigate();
     const [mood, setMood] = useState<number>(0);
+	const [preloadedImage, setPreloadedImage] = useState<string | null>(null);
+	
+	// Fetch the random image on page load
+    useEffect(() => {
+        async function fetchImage() {
+            try {
+                const response = await axiosInstance.get('/random');
+                setPreloadedImage(response.data.data.name);
+            } catch (error) {
+                console.error('Failed to fetch preloaded image:', error);
+            }
+        }
+
+        fetchImage();
+    }, []);
 
     const handleClick = () => navigate('/settings');
 

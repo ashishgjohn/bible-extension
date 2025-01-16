@@ -18,10 +18,9 @@ export default function VersesContainer({ verses, images }: VersesContainerProps
         return generateRandomIndex(verses.length);
     });
     const verse = verses[index];
-    const [image] = useState<ImageType>(function () {
-        return images[generateRandomIndex(images.length)];
-    });
-
+	
+	const image = images[0]; 
+	
     function handleClickOnVerse() {
         setIndex(generateRandomIndex(verses.length));
     }
