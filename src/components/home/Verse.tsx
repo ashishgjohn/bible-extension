@@ -15,7 +15,7 @@ type VersePropsType = {
     onClick: () => void;
 }
 
-const facebookCaption = "My verse for today’s journey | SelahVie https://selahvie-backend.onrender.com/";
+const facebookCaption = "SelahVie";
 
 export default function Verse({ reference, text, image, onClick }: VersePropsType) {
     const [url, setUrl] = useState<string | null>(null);
@@ -24,20 +24,24 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
         mutationKey: ['verseImage', text, reference],
         mutationFn: () => getVerseImage(text, reference, strings[(strings.length - 1)]),
         onSuccess: (data) => {
-            window.open(`${url}${data.imageUrl}`, '_blank');
+            // Now use the generated image URL for Facebook sharing
+            const facebookUrl = `https://www.facebook.com/dialog/share?app_id=1047194497182929&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=${encodeURIComponent(data.imageUrl)}`;
+            window.open(facebookUrl, '_blank');
         },
         onError: (error) => {
             console.log(error);
         }
     });
 
-    async function handleClick(url: string) {
-        if (data) {
-            console.log(data.imageUrl);
+    console.log(data?.imageUrl);
 
-            window.open(`${url}${data.imageUrl}`, '_blank');
+    async function handleClick() {
+        if (data) {
+            // Image already generated, use it for Facebook sharing
+            const facebookUrl = `https://www.facebook.com/dialog/share?app_id=1047194497182929&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=${encodeURIComponent(data.imageUrl)}`;
+            window.open(facebookUrl, '_blank');
         } else {
-            setUrl(url);
+            // Generate image first, onSuccess will handle Facebook sharing
             mutate();
         }
     }
@@ -57,7 +61,7 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
                     />
                 </div>
                 <ShareButton
-                    onClick={() => handleClick(`https://www.facebook.com/dialog/share?app_id=1047194497182929&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=`)}
+                    onClick={handleClick}
                     disabled={isPending}
                 >
                     {isPending ? (

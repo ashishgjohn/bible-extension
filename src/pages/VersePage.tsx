@@ -13,7 +13,7 @@ export default function VersePage() {
 	
     const { data, isLoading, error, isSuccess } = useVerses(score ?? 0);
 	
-	const images = preloadedImage ? [preloadedImage] : [];
+	const images = preloadedImage ? [preloadedImage] : (data?.images || []);
 	
     console.error(error);
 

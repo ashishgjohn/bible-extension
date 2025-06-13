@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "SelahVie",
+    "name": "SelahVie Test",
     "description": "Chrome Extension for The Holy Bible",
     "version": "1.0",
     "action": {
