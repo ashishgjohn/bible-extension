@@ -24,8 +24,9 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
         mutationKey: ['verseImage', text, reference],
         mutationFn: () => getVerseImage(text, reference, strings[(strings.length - 1)]),
         onSuccess: (data) => {
-            // Now use the generated image URL for Facebook sharing
-            const facebookUrl = `https://www.facebook.com/dialog/share?app_id=1047194497182929&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=${encodeURIComponent(data.imageUrl)}`;
+            // Create share URL that Facebook can crawl for meta tags (not the direct image)
+            const shareUrl = `https://api.selahvie.life/api/share?verse=${encodeURIComponent(text)}&reference=${encodeURIComponent(reference)}&imageUrl=${encodeURIComponent(data.imageUrl)}`;
+            const facebookUrl = `https://www.facebook.com/dialog/share?app_id=1047194497182929&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=${encodeURIComponent(shareUrl)}`;
             window.open(facebookUrl, '_blank');
         },
         onError: (error) => {
@@ -37,8 +38,9 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
 
     async function handleClick() {
         if (data) {
-            // Image already generated, use it for Facebook sharing
-            const facebookUrl = `https://www.facebook.com/dialog/share?app_id=1047194497182929&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=${encodeURIComponent(data.imageUrl)}`;
+            // Image already generated, create share URL for Facebook meta tags
+            const shareUrl = `https://api.selahvie.life/api/share?verse=${encodeURIComponent(text)}&reference=${encodeURIComponent(reference)}&imageUrl=${encodeURIComponent(data.imageUrl)}`;
+            const facebookUrl = `https://www.facebook.com/dialog/share?app_id=1047194497182929&display=popup&hashtag=${encodeURIComponent(facebookCaption)}&href=${encodeURIComponent(shareUrl)}`;
             window.open(facebookUrl, '_blank');
         } else {
             // Generate image first, onSuccess will handle Facebook sharing
