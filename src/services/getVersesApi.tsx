@@ -11,13 +11,15 @@ export default async function getVersesApi(score: number) {
     return data;
 }
 
-export async function getVerseImage(text: string, image: string) {
+export async function getVerseImage(text: string, reference: string, image: string) {
     const { data, status } = await axiosInstance.request({
-        url: `/images`,
+        url: `/share`,
         method: 'get',
         params: {
-            text,
-            image
+            format: 'image',
+            verse: text,
+            reference: reference,
+            bgImage: image
         }
     });
 

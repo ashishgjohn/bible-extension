@@ -21,8 +21,8 @@ export default function Verse({ reference, text, image, onClick }: VersePropsTyp
     const [url, setUrl] = useState<string | null>(null);
     const strings = image.split("/");
     const { mutate, isPending, data } = useMutation({
-        mutationKey: ['verseImage', text],
-        mutationFn: () => getVerseImage(`${text} - ${reference}`, strings[(strings.length - 1)]),
+        mutationKey: ['verseImage', text, reference],
+        mutationFn: () => getVerseImage(text, reference, strings[(strings.length - 1)]),
         onSuccess: (data) => {
             window.open(`${url}${data.imageUrl}`, '_blank');
         },
