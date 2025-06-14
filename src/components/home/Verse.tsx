@@ -3,7 +3,6 @@ import { FaFacebook } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { getVerseImage } from "../../services/getVersesApi";
 import Loader from "../ui/Loader";
-import { useState } from "react";
 import Logo from "../ui/Logo";
 import logo from "./../../assets/imgs/SelahvieLogoWhite.webp";
 
@@ -18,7 +17,6 @@ type VersePropsType = {
 //const facebookCaption = "SelahVie";
 
 export default function Verse({ reference, text, image, onClick }: VersePropsType) {
-    const [url, setUrl] = useState<string | null>(null);
     const strings = image.split("/");
     const { mutate, isPending, data } = useMutation({
         mutationKey: ['verseImage', text, reference],
