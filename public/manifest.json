@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
-    "name": "SelahVie Test",
-    "description": "Chrome Extension for The Holy Bible",
+    "name": "SelahVie",
+    "description": "Get personalized scripture based on your mood and share inspiring verses with beautiful backgrounds.",
     "version": "1.0",
     "action": {
         "default_icon": "SelahVie-logo.png"
