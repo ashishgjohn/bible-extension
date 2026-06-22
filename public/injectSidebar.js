@@ -38,11 +38,23 @@ function applyLayoutFix(sidebarWidth) {
     document.body.style.marginRight = `${sidebarWidth}px`;
     document.body.style.transition = 'margin-right 0.3s ease';
 
+    if (window.location.hostname.includes('amazon.com')) {
+        const aPage = document.getElementById('a-page');
+        if (aPage) {
+            aPage.style.maxWidth = sidebarWidth > 0
+                ? `calc(100% - ${sidebarWidth}px)`
+                : '';
+            aPage.style.transition = 'max-width 0.3s ease';
+        }
+    }
+
     if (window.location.hostname.includes('youtube.com')) {
-        const primaryContent = document.getElementById('primary');
-        if (primaryContent) {
-            primaryContent.style.marginRight = '400px';
-            primaryContent.style.transition = 'margin-right 0.3s ease';
+        const columns = document.getElementById('columns');
+        if (columns) {
+            columns.style.maxWidth = sidebarWidth > 0
+                ? `calc(100% - ${sidebarWidth}px)`
+                : '';
+            columns.style.transition = 'max-width 0.3s ease';
         }
     }
 
