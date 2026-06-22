@@ -45,7 +45,7 @@ function applyLayoutFix(sidebarWidth) {
         if (aPage) {
             aPage.style.maxWidth = sidebarWidth > 0
                 ? `calc(100% - ${sidebarWidth}px)`
-                : '';
+                : '100%';
             aPage.style.transition = 'max-width 0.3s ease';
         }
     }
@@ -53,15 +53,15 @@ function applyLayoutFix(sidebarWidth) {
     if (window.location.hostname.includes('youtube.com')) {
         const ytApp = document.querySelector('ytd-app');
         if (ytApp) {
-            ytApp.style.marginRight = sidebarWidth > 0 ? `${sidebarWidth}px` : '';
+            ytApp.style.marginRight = sidebarWidth > 0 ? `${sidebarWidth}px` : '0px';
             ytApp.style.transition = 'margin-right 0.3s ease';
         }
     }
 
     if (window.location.hostname.includes('mail.google.com')) {
-        const mainContent = document.querySelector('.aeF');
+        const mainContent = document.querySelector('[role="main"]') || document.querySelector('.aeF');
         if (mainContent) {
-            mainContent.style.marginRight = '400px';
+            mainContent.style.marginRight = sidebarWidth > 0 ? `${sidebarWidth}px` : '0px';
             mainContent.style.transition = 'margin-right 0.3s ease';
         }
     }
@@ -69,7 +69,7 @@ function applyLayoutFix(sidebarWidth) {
     if (window.location.hostname.includes('play.google.com')) {
         const mainContent = document.querySelector('.VfPpkd-Jh9lGc');
         if (mainContent) {
-            mainContent.style.marginRight = '400px';
+            mainContent.style.marginRight = sidebarWidth > 0 ? `${sidebarWidth}px` : '';
             mainContent.style.transition = 'margin-right 0.3s ease';
         }
     }
@@ -77,7 +77,7 @@ function applyLayoutFix(sidebarWidth) {
     if (window.location.hostname.includes('meet.google.com')) {
         const meetContent = document.querySelector('.MCcOAc.IqBfM.ecJEib.EWZcud.cjGgHb.d8Etdd.LcUz9d');
         if (meetContent) {
-            meetContent.style.marginRight = '400px';
+            meetContent.style.marginRight = sidebarWidth > 0 ? `${sidebarWidth}px` : '';
             meetContent.style.transition = 'margin-right 0.3s ease';
         }
     }
