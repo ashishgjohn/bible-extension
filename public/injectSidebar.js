@@ -35,8 +35,10 @@ function removeSidebar() {
 }
 
 function applyLayoutFix(sidebarWidth) {
-    document.body.style.marginRight = `${sidebarWidth}px`;
-    document.body.style.transition = 'margin-right 0.3s ease';
+    if (!window.location.hostname.includes('youtube.com')) {
+        document.body.style.marginRight = `${sidebarWidth}px`;
+        document.body.style.transition = 'margin-right 0.3s ease';
+    }
 
     if (window.location.hostname.includes('amazon.com')) {
         const aPage = document.getElementById('a-page');
@@ -49,12 +51,10 @@ function applyLayoutFix(sidebarWidth) {
     }
 
     if (window.location.hostname.includes('youtube.com')) {
-        const columns = document.getElementById('columns');
-        if (columns) {
-            columns.style.maxWidth = sidebarWidth > 0
-                ? `calc(100% - ${sidebarWidth}px)`
-                : '';
-            columns.style.transition = 'max-width 0.3s ease';
+        const ytApp = document.querySelector('ytd-app');
+        if (ytApp) {
+            ytApp.style.marginRight = sidebarWidth > 0 ? `${sidebarWidth}px` : '';
+            ytApp.style.transition = 'margin-right 0.3s ease';
         }
     }
 
