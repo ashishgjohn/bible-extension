@@ -15,7 +15,7 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.alarms.create('alarm', {
     delayInMinutes: 0,
-    periodInMinutes: 0.016
+    periodInMinutes: 1
   });
 
   chrome.alarms.create('resetDailyFlags', {
