@@ -80,15 +80,15 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
     });
 
     const date = new Date(Date.now());
-    const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+    const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 
-    if (formattedTime === time1 && !openedForTime1 && enabled1) {
+    if (formattedTime === time1?.slice(0, 5) && !openedForTime1 && enabled1) {
       injectSidebar(true);
       await chrome.storage.local.set({ openedForTime1: true });
-    } else if (formattedTime === time2 && !openedForTime2 && enabled2) {
+    } else if (formattedTime === time2?.slice(0, 5) && !openedForTime2 && enabled2) {
       injectSidebar(true);
       await chrome.storage.local.set({ openedForTime2: true });
-    } else if (formattedTime === time3 && !openedForTime3 && enabled3) {
+    } else if (formattedTime === time3?.slice(0, 5) && !openedForTime3 && enabled3) {
       injectSidebar(true);
       await chrome.storage.local.set({ openedForTime3: true });
     }

@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 tsconfig.app.tsbuildinfo
 .hintrc
+generate_verses.py
+SelahVie_Verses.xlsx
